@@ -30,3 +30,47 @@ The deployment terminal is set to 80 columns by 24 rows. That means that each li
 ---
 
 Happy coding!
+
+
+
+# Battleship Game
+
+## Overview 
+## Deployed Site
+
+# Contents
+contents table
+
+# User Experience (UX)
+
+## User Stories
+
+# Workflow
+
+## Pseudocode 
+## Flowchat
+## Wireframe 
+ wireframe sketches screenshots (function planning etc)
+
+# Features 
+
+# Testing 
+
+## Manual Testing
+    manual testing grids (screenshot)
+## Validator Testing
+    CI Python Linter Validator.
+## Lighthouse Testing
+    screenshot of DEPLOYED lighthouse test
+## Bugs
+### Fixed Bugs
+### Known Bugs
+
+# Deployment 
+    deployement steps for heroku 
+
+# Languages and Programs
+
+# Credits
+
+# Acknowledgements 
