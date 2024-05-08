@@ -4,6 +4,7 @@
 
 def test():
     print("Testing....\n")
+    print("checking if i need to refresh...\n")
     print("Connected!")
 
 test()
