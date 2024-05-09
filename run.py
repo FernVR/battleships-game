@@ -8,8 +8,15 @@ def test():
     print("Testing....\n")
     print("checking if i need to refresh...\n")
     print("Connected!")
+    print("another test..\n")
+    print("connected!!!!")
 
 test()
+
+
+
+
+
 
 # Creating functions we need:
 
