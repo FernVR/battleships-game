@@ -1,6 +1,11 @@
 from random import randint
 import random
 
+# LEGEND 
+# "X" for placing battleship and hit battleship
+# "~" for available space
+# "-" for missed shot
+
 
 # Generates 8 empty slots for game board
 HIDDEN_BRD = [["~"] * 8 for x in range(8)]
@@ -17,13 +22,13 @@ def print_rules():
     "Do you want to proceed Y/N" Text input to check
     if user wants to continue 
     """
-
-def name_input():
-    """
-    Takes name of the user and asks what size grid they want?
-    6/10 grid size 
-    """
-
+    username = input("Please enter your username: ")
+    rules = input(f"Welcome to Battleships {username}! \n There are 5 Ships to Hit, and 10 turns. Do you wish to continue? Y/N: ")
+    if rules == "n":
+        print("We're sorry to see you go!")
+    else: 
+        pass
+    
 def create_board(board):
     """
     creates player grid 
@@ -48,11 +53,21 @@ def create_ships(board):
             ship_row, ship_col = randint(0, 7), randint(0, 7)
         board[ship_row][ship_col] = "X"
 
-def player_turn():
+def user_input():
     """
     Allows player to take their turn
     Validates their guess, Hit or Miss.
     """
+    row = input("Please enter a ROW (1-8): ")
+    while row not in "12345678":
+        print("Invalid Input. Please enter a number(1-8)")
+        row = input("Please enter a ROW (1-8): ")
+    column = input("Please enter a COLUMN (A-H): ").upper()
+    while column not in "ABCDEFGH":
+        print("Invalid Input. Please enter a letter(A-H)")
+        column = input("Please enter a COLUMN (A-H): ").upper()
+    return int(row) - 1, letters_to_numbers[column]
+
 
 
 def computer_turn():
@@ -61,14 +76,49 @@ def computer_turn():
     Validates the guess, Hit or Miss
     """
 
+
+def count_hits(board):
+    count = 0
+    for row in board:
+        for column in row:
+            if column == "X":
+                count += 1
+    return count
+
 def play():
     """
     function to start game
     """
-    print("W E L C O M E // T O // B A T T L E S H I P!\n")
+    print_rules()
     create_ships(HIDDEN_BRD)
     create_board(HIDDEN_BRD)
-    create_board(GUESS_BRD)
+
+    turns = 10
+    while turns > 0:
+        create_board(GUESS_BRD)
+        row, column = user_input()
+        if GUESS_BRD[row][column] == "-":
+            print(f"You've already guessed that, PLEASE TRY AGAIN")
+        elif HIDDEN_BRD[row][column] == "X":
+            print("Well done! You hit the ship!\n")
+            GUESS_BRD[row][column] = "X"
+            turns -= 1
+        else:
+            print("Sorry, you missed!\n")
+            GUESS_BRD[row][column] = "-"
+            turns -= 1
+        
+        if count_hits(GUESS_BRD) == 5:
+            print("CONGRADULATIONS! You hit all the battleships. \n")
+            print("GAME OVER")
+            break
+        print("You have " + str(turns) + " turns remaining.\n")
+        if turns == 0:
+            print("No more turns. Game Over.")
+            break
+        
+
+
 
 play_game = play()
 

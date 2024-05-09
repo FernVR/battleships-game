@@ -2,7 +2,6 @@ from random import randint
 import random
 
 # Youtube video notes:
- """
 
 class GameBoard:
     """
@@ -100,7 +99,6 @@ def run_game():
 if __name__ == '__main__':
     run_game()
 
-"""
 
 
 
