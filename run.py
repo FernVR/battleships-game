@@ -34,8 +34,7 @@ def create_board(board):
     creates player grid 
     prints grids to terminal
     """
-    print("  ///////////////")
-    print("  A B C D E F G H")
+    print("\n  A B C D E F G H")
     print("  ---------------")
 
     row_number = 1
@@ -58,14 +57,14 @@ def user_input():
     Allows player to take their turn
     Validates their guess, Hit or Miss.
     """
-    row = input("Please enter a ROW (1-8): ")
+    row = input("\nPlease enter a ROW (1-8): ")
     while row not in "12345678":
-        print("Invalid Input. Please enter a number(1-8)")
-        row = input("Please enter a ROW (1-8): ")
-    column = input("Please enter a COLUMN (A-H): ").upper()
+        print("Invalid Input. Please enter a number(1-8)\n")
+        row = input("\nPlease enter a ROW (1-8): ")
+    column = input("\nPlease enter a COLUMN (A-H): ").upper()
     while column not in "ABCDEFGH":
-        print("Invalid Input. Please enter a letter(A-H)")
-        column = input("Please enter a COLUMN (A-H): ").upper()
+        print("Invalid Input. Please enter a letter(A-H)\n")
+        column = input("\nPlease enter a COLUMN (A-H): ").upper()
     return int(row) - 1, letters_to_numbers[column]
 
 
@@ -98,14 +97,14 @@ def play():
         create_board(GUESS_BRD)
         row, column = user_input()
         if GUESS_BRD[row][column] == "-":
-            print(f"You've already guessed that, PLEASE TRY AGAIN")
+            print(f"\nYou've already guessed that, PLEASE TRY AGAIN\n")
         elif HIDDEN_BRD[row][column] == "X":
-            print("Well done! You hit the ship!\n")
+            print("\nWell done! You hit the ship!\n")
             GUESS_BRD[row][column] = "X"
             turns -= 1
         else:
-            print("Sorry, you missed!\n")
-            GUESS_BRD[row][column] = "-"
+            print("\nSorry, you missed!\n")
+            GUESS_BRD[row][column] = "O"
             turns -= 1
         
         if count_hits(GUESS_BRD) == 5:
