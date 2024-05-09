@@ -1,4 +1,4 @@
-
+"""
 # Youtube video notes:
 
 import random 
@@ -14,12 +14,12 @@ class GameBoard:
         return letters_numbers
 
     def print_game_board(self):
-        print("   A  B  C  D  E  F  G  H")
-        print("  /////////////////////////")
+        print("   A B C D E F G H")
+        print("  ////////////////")
 
         row_number = 1
         for row in self.board:
-            print(row_number,"|", " | ".join(row), "|")
+            print(row_number, "|".join(row))
             row_number += 1
 
 class Battleship:
@@ -62,8 +62,8 @@ class Battleship:
     
 
 def run_game():
-    computer_board = GameBoard([[""] * 8 for i in range(8)])
-    user_guess_board = GameBoard([[""] * 8 for i in range(8)])
+    computer_board = GameBoard([[" "] * 8 for i in range(8)])
+    user_guess_board = GameBoard([[" "] * 8 for i in range(8)])
     Battleship.generate_ships(computer_board)
     # Starts at 10 turns
     turns = 10
@@ -98,6 +98,21 @@ def run_game():
 
 if __name__ == '__main__':
     run_game()
+"""
+
+# Youtube Video 2 notes:
+
+HIDDEN_BOARD = [[" "] * 8 for x in range(8)]
+GUESS_BOARD = [[" "] * 8 for x in range(8)]
+
+letters_to_numbers = {"A": 0, "B":1, "C":2, "D":3, "E":4, "F":5, "G":6, "H":7}
+
+
+
+def game_board():
+    pass
+
+
             
 
 
