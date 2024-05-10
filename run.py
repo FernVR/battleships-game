@@ -4,7 +4,7 @@ import random
 # LEGEND 
 # "X" for placing battleship and hit battleship
 # "~" for available space
-# "-" for missed shot
+# "O" for missed shot
 
 
 # Generates 8 empty slots for game board
@@ -84,14 +84,13 @@ def count_hits(board):
                 count += 1
     return count
 
-def play():
+def play_game():
     """
-    function to start game
+    plays game
+    creates 10 turns for a user 
+    places miss and hit symbols where the user guesses
+    checks if user has already made the same move and notifies them
     """
-    print_rules()
-    create_ships(HIDDEN_BRD)
-    create_board(HIDDEN_BRD)
-
     turns = 10
     while turns > 0:
         create_board(GUESS_BRD)
@@ -118,7 +117,19 @@ def play():
         
 
 
+def main():
+    """
+    Calls all functions to start game
+    """
+    print_rules()
+    create_ships(HIDDEN_BRD)
+    create_board(HIDDEN_BRD)
+    play_game()
 
-play_game = play()
+
+
+
+
+start = main()
 
 
