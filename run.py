@@ -1,6 +1,14 @@
-
+# Import libraries
 from random import randint
 import random
+import time
+
+# ANSI Escape codes
+blue = "\033[94m"
+green = "\033[92m"
+red = "\033[91m"
+yellow = "\033[93m"
+end_color = "\033[0m"
 
 # LEGEND 
 # "X" for placing battleship and hit battleship
@@ -23,7 +31,7 @@ def print_rules():
     "Do you want to proceed Y/N" Text input to check
     if user wants to continue 
     """
-    username = input("Please enter your username: ")
+    username = input(green + "Please enter your username: " + end_color)
     rules = input(f"Welcome to Battleships {username}! There are 5 Ships to Hit, and 10 turns. Do you wish to continue? Y/N: ")
     if rules == "n":
         print("We're sorry to see you go!")
@@ -36,7 +44,7 @@ def create_board(board):
     creates player grid 
     prints grids to terminal
     """
-    print("\n  A B C D E F G H")
+    print(blue + "\n  A B C D E F G H" + end_color)
     print("  ---------------")
 
     row_number = 1
@@ -60,14 +68,16 @@ def user_input():
     """
     Allows player to take their turn
     Validates their guess, Hit or Miss.
+    If a user enters an invalid input, or NO input, 
+    the input will run again until a user inputs a valid input.
     """
     row = input("\nPlease enter a ROW (1-8): ")
     while row not in "12345678":
-        print("Invalid Input. Please enter a number(1-8)\n")
+        print(red + "Invalid Input. Please enter a number(1-8)\n" + end_color)
         row = input("\nPlease enter a ROW (1-8): ")
     column = input("\nPlease enter a COLUMN (A-H): ").upper()
     while column not in "ABCDEFGH":
-        print("Invalid Input. Please enter a letter(A-H)\n")
+        print(red + "Invalid Input. Please enter a letter(A-H)\n" + end_color)
         column = input("\nPlease enter a COLUMN (A-H): ").upper()
     return int(row) - 1, letters_to_numbers[column]
 
@@ -94,29 +104,29 @@ def play_game():
     creates 10 turns for a user 
     places miss and hit symbols where the user guesses
     checks if user has already made the same move and notifies them
+    User only loses a turn if they miss
     """
     turns = 10
     while turns > 0:
         create_board(GUESS_BRD)
         row, column = user_input()
         if GUESS_BRD[row][column] == "-":
-            print(f"\nYou've already guessed that, PLEASE TRY AGAIN\n")
+            print(yellow + f"\nYou've already guessed that, PLEASE TRY AGAIN\n" + end_color)
         elif HIDDEN_BRD[row][column] == "X":
-            print("\nWell done! You hit the ship!\n")
-            GUESS_BRD[row][column] = "X"
-            turns -= 1
+            print(green + "\nWell done! You hit the ship!\n" + end_color)
+            GUESS_BRD[row][column] = red + "X" + end_color
         else:
-            print("\nSorry, you missed!\n")
-            GUESS_BRD[row][column] = "O"
+            print(yellow + "\nSorry, you missed!\n" + end_color)
+            GUESS_BRD[row][column] = yellow + "O" + end_color
             turns -= 1
         
         if count_hits(GUESS_BRD) == 5:
-            print("CONGRADULATIONS! You hit all the battleships. \n")
-            print("GAME OVER")
+            print(yellow + "CONGRADULATIONS! You hit all the battleships. \n" + end_color)
+            print(red + "GAME OVER" + end_color)
             break
-        print("You have " + str(turns) + " turns remaining.\n")
+        print(green + "You have " + str(turns) + " turns remaining.\n" + end_color)
         if turns == 0:
-            print("No more turns. Game Over.")
+            print(red + "No more turns. Game Over.")
             break
         
 
