@@ -119,7 +119,7 @@ def play_game():
             print(yellow + "\nSorry, you missed!\n" + end_color)
             GUESS_BRD[row][column] = yellow + "O" + end_color
             turns -= 1
-        
+            
         if count_hits(GUESS_BRD) == 5:
             print(yellow + "CONGRADULATIONS! You hit all the battleships. \n" + end_color)
             print(red + "GAME OVER" + end_color)
@@ -129,6 +129,7 @@ def play_game():
             print(red + "No more turns. Game Over.")
             break
         
+
 
 def main():
     """
