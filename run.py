@@ -1,3 +1,4 @@
+
 from random import randint
 import random
 
@@ -6,13 +7,13 @@ import random
 # "~" for available space
 # "O" for missed shot
 
-
 # Generates 8 empty slots for game board
 HIDDEN_BRD = [["~"] * 8 for x in range(8)]
 GUESS_BRD = [["~"] * 8 for x in range(8)]
 
 # Converts letters to number/ position 
-letters_to_numbers = {"A": 0, "B":1, "C":2, "D":3, "E":4, "F":5, "G":6, "H":7}
+letters_to_numbers = {"A" : 0, "B" : 1, "C" : 2, "D" : 3, "E" : 4, "F" : 5, 
+                      "G" : 6, "H" : 7}
 
 # Creating functions we need:
 
@@ -23,11 +24,12 @@ def print_rules():
     if user wants to continue 
     """
     username = input("Please enter your username: ")
-    rules = input(f"Welcome to Battleships {username}! \n There are 5 Ships to Hit, and 10 turns. Do you wish to continue? Y/N: ")
+    rules = input(f"Welcome to Battleships {username}! There are 5 Ships to Hit, and 10 turns. Do you wish to continue? Y/N: ")
     if rules == "n":
         print("We're sorry to see you go!")
     else: 
         pass
+    
     
 def create_board(board):
     """
@@ -41,6 +43,7 @@ def create_board(board):
     for row in board:
         print("%d|%s|" % (row_number, "|".join(row)))
         row_number += 1
+        
 
 def create_ships(board):
     """
@@ -51,6 +54,7 @@ def create_ships(board):
         while board[ship_row][ship_col] == "X":
             ship_row, ship_col = randint(0, 7), randint(0, 7)
         board[ship_row][ship_col] = "X"
+
 
 def user_input():
     """
@@ -68,7 +72,6 @@ def user_input():
     return int(row) - 1, letters_to_numbers[column]
 
 
-
 def computer_turn():
     """
     Generates computer turn
@@ -83,6 +86,7 @@ def count_hits(board):
             if column == "X":
                 count += 1
     return count
+
 
 def play_game():
     """
@@ -116,7 +120,6 @@ def play_game():
             break
         
 
-
 def main():
     """
     Calls all functions to start game
@@ -127,9 +130,4 @@ def main():
     play_game()
 
 
-
-
-
 start = main()
-
-
