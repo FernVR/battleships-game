@@ -95,7 +95,7 @@ def count_hits(board):
     count = 0
     for row in board:
         for column in row:
-            if column == "X":
+            if column == red + "X" + end_color:
                 count += 1
     return count
 
@@ -123,7 +123,7 @@ def play_game():
             turns -= 1
             
         if count_hits(GUESS_BRD) == 5:
-            print(yellow + "CONGRADULATIONS! You hit all the battleships. \n" + end_color)
+            print(yellow + "CONGRADULATIONS! You hit all the battleships. \n")
             print(red + "GAME OVER" + end_color)
             break
         print(green + "You have " + str(turns) + " turns remaining.\n" + end_color)
