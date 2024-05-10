@@ -16,8 +16,8 @@ end_color = "\033[0m"
 # "O" for missed shot
 
 # Generates 8 empty slots for game board
-HIDDEN_BRD = [["~"] * 8 for x in range(8)]
-GUESS_BRD = [["~"] * 8 for x in range(8)]
+HIDDEN_BRD = [[blue + "~" + end_color] * 8 for x in range(8)]
+GUESS_BRD = [[blue + "~" + end_color] * 8 for x in range(8)]
 
 # Converts letters to number/ position 
 letters_to_numbers = {"A" : 0, "B" : 1, "C" : 2, "D" : 3, "E" : 4, "F" : 5, 
@@ -32,11 +32,13 @@ def print_rules():
     if user wants to continue 
     """
     username = input(green + "Please enter your username: " + end_color)
-    rules = input(f"Welcome to Battleships {username}! There are 5 Ships to Hit, and 10 turns. Do you wish to continue? Y/N: ")
-    if rules == "n":
+    rules = input(f"Welcome to Battleships {yellow + username.upper() + end_color}!\nThere are 5 Ships to Hit, and 10 turns.\nHit ships will show" + red + " X" + end_color + "\nMissed ships will show" + yellow + " O" + end_color + "\nDo you wish to continue? Y/N: ").upper()
+    if rules != "y":
         print("We're sorry to see you go!")
-    else: 
-        pass
+        # unable to exit loop here, figure out how to exit game?
+
+    
+    
     
     
 def create_board(board):
@@ -44,8 +46,8 @@ def create_board(board):
     creates player grid 
     prints grids to terminal
     """
-    print(blue + "\n  A B C D E F G H" + end_color)
-    print("  ---------------")
+    print("\n  A B C D E F G H")
+    print("  ________________")
 
     row_number = 1
     for row in board:
