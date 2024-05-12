@@ -18,6 +18,10 @@ end_color = "\033[0m"
 # Generates 8 empty slots for game board
 HIDDEN_BRD = [[blue + "~" + end_color] * 8 for x in range(8)]
 GUESS_BRD = [[blue + "~" + end_color] * 8 for x in range(8)]
+# Computer board for computer guess ?
+
+HIDDEN_COMP_BRD = [[blue + "~" + end_color] * 8 for x in range(8)]
+COMP_GUESS_BRD = [[blue + "~" + end_color] * 8 for x in range(8)]
 
 # Converts letters to number/ position 
 letters_to_numbers = {"A" : 0, "B" : 1, "C" : 2, "D" : 3, "E" : 4, "F" : 5, 
@@ -35,9 +39,8 @@ def print_rules():
     rules = input(f"Welcome to Battleships {yellow + username.upper() + end_color}!\nThere are 5 Ships to Hit, and 10 turns.\nHit ships will show" + red + " X" + end_color + "\nMissed ships will show" + yellow + " O" + end_color + "\nDo you wish to continue? Y/N: ").upper()
     if rules != "y":
         print("We're sorry to see you go!")
-        # unable to exit loop here, figure out how to exit game?
+        # unable to exit loop here, figure out how to exit game? BREAK doesn't work
 
-    
     
     
     
@@ -47,7 +50,7 @@ def create_board(board):
     prints grids to terminal
     """
     print("\n  A B C D E F G H")
-    print("  ________________")
+    print("//////////////////")
 
     row_number = 1
     for row in board:
@@ -111,6 +114,9 @@ def play_game():
     turns = 10
     while turns > 0:
         create_board(GUESS_BRD)
+        print(green + "   COMPUTER GRID" + end_color)
+        create_board(COMP_GUESS_BRD)
+        print(green + "    PLAYER GRID" + end_color)
         row, column = user_input()
         if GUESS_BRD[row][column] == "-":
             print(yellow + f"\nYou've already guessed that, PLEASE TRY AGAIN\n" + end_color)
@@ -139,7 +145,7 @@ def main():
     """
     print_rules()
     create_ships(HIDDEN_BRD)
-    create_board(HIDDEN_BRD)
+    create_ships(HIDDEN_COMP_BRD)
     play_game()
 
 
