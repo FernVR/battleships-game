@@ -49,9 +49,7 @@ def create_board(board):
     creates player grid 
     prints grids to terminal
     """
-    print("\n  A B C D E F G H")
-    print("//////////////////")
-
+    print("\n  A B C D E F G H") 
     row_number = 1
     for row in board:
         print("%d|%s|" % (row_number, "|".join(row)))
