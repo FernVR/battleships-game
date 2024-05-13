@@ -111,9 +111,11 @@ def play_game():
     """
     turns = 10
     while turns > 0:
+        create_board(HIDDEN_BRD)
+        print("hidden board : test")
         create_board(GUESS_BRD)
         print(green + "   COMPUTER GRID" + end_color)
-        create_board(COMP_GUESS_BRD)
+        create_board(HIDDEN_COMP_BRD)
         print(green + "    PLAYER GRID" + end_color)
         row, column = user_input()
         if GUESS_BRD[row][column] == "-":
