@@ -4,27 +4,30 @@ import random
 import time
 
 # ANSI Escape codes
-blue = "\u001b[34m"
-green = "\u001b[32m"
-red = "\u001b[31;1m"
-yellow = "\u001b[33m"
-end_color = "\u001b[37;1m" # "BRIGHT White"
+BLUE = "\033[94m"
+GREEN = "\033[92m"
+RED = "\033[91m"
+YELLOW = "\033[93m"
+END_COLOR = "\033[0m"
 
 # LEGEND 
 # "X" for placing battleship and hit battleship
 # "~" for available space
 # "O" for missed shot
 
-# Grid size variable can be adjusted 
+AVAILABLE_BLOCK = "~"
+MISSED_SHOT = "O"
+GUESSED_SHIP = "X"
+
 GRID_SIZE = 8
 
 # Generates 8 empty slots for game board
-HIDDEN_BRD = [[blue + "~" + end_color] * GRID_SIZE for x in range(GRID_SIZE)]
-GUESS_BRD = [[blue + "~" + end_color] * GRID_SIZE for x in range(GRID_SIZE)]
-
+HIDDEN_BRD = [[BLUE + "~" + END_COLOR] * GRID_SIZE for x in range(GRID_SIZE)]
+GUESS_BRD = [[BLUE + "~" + END_COLOR] * GRID_SIZE for x in range(GRID_SIZE)]
 # Computer board for computer guess ?
-HIDDEN_COMP_BRD = [[blue + "~" + end_color] * GRID_SIZE for x in range(GRID_SIZE)]
-COMP_GUESS_BRD = [[blue + "~" + end_color] * GRID_SIZE for x in range(GRID_SIZE)]
+
+HIDDEN_COMP_BRD = [[BLUE + "~" + END_COLOR] * GRID_SIZE for x in range(GRID_SIZE)]
+COMP_GUESS_BRD = [[BLUE + "~" + END_COLOR] * GRID_SIZE for x in range(GRID_SIZE)]
 
 # Converts letters to number/ position 
 letters_to_numbers = {"A" : 0, "B" : 1, "C" : 2, "D" : 3, "E" : 4, "F" : 5, 
@@ -32,16 +35,22 @@ letters_to_numbers = {"A" : 0, "B" : 1, "C" : 2, "D" : 3, "E" : 4, "F" : 5,
 
 # Creating functions we need:
 
+RULES = """
+Welcome to Battleships {{vara}}!
+There are 5 Ships to Hit, and 10 turns.
+Hit ships will show" + red + " X" + end_color + "
+Missed ships will show" + yellow + " O" + end_color + "
+"""
+
 def print_rules():
     """
     Prints rules of game to terminal 
     "Do you want to proceed Y/N" Text input to check
     if user wants to continue 
     """
-    username = input(green + "Please enter your username: " + end_color)
-    rules = input(f"Welcome to Battleships {yellow + username.upper() + end_color}!\nThere are 5 Ships to Hit, and 10 turns.\nHit ships will show" + red + " X" + end_color + "\nMissed ships will show" + yellow + " O" + end_color + "\nDo you wish to continue? Y/N: ").upper()
-    if rules != "y":
-        print("We're sorry to see you go!")
+    username = input(GREEN + "Please enter your username: " + END_COLOR)
+    print(RULES.format(vara=f"{YELLOW + username.upper() + END_COLOR}"))
+    
         # unable to exit loop here, figure out how to exit game? BREAK doesn't work
 
     
@@ -63,11 +72,12 @@ def create_ships(board):
     """
     Creates ships with random numbers between 0-7
     """
-    for ship in range(5):
-        ship_row, ship_col = randint(0, 7), randint(0, 7)
-        while board[ship_row][ship_col] == "X":
-            ship_row, ship_col = randint(0, 7), randint(0, 7)
-        board[ship_row][ship_col] = "X"
+    for _ in range(5):
+        while True:
+            ship_row, ship_col = randint(0, GRID_SIZE -1 ), randint(0, GRID_SIZE -1 )
+            if board[ship_row][ship_col] == GUESSED_SHIP:
+                continue
+            board[ship_row][ship_col] = GUESSED_SHIP
 
 
 def user_input():
@@ -77,13 +87,21 @@ def user_input():
     If a user enters an invalid input, or NO input, 
     the input will run again until a user inputs a valid input.
     """
-    row = input("\nPlease enter a ROW (1-8): ")
+    while True:
+        try:
+            row = int(input("\nPlease enter a ROW (1-8): "))
+            # if row < 1 or row > GRID_SIZE:
+            if row not in letters_to_numbers.values():
+                raise ValueError()
+        except ValueError:
+            print("Invalid input.. please try again..")
+
     while row not in "12345678":
-        print(red + "Invalid Input. Please enter a number(1-8)\n" + end_color)
+        print(RED + "Invalid Input. Please enter a number(1-8)\n" + END_COLOR)
         row = input("\nPlease enter a ROW (1-8): ")
     column = input("\nPlease enter a COLUMN (A-H): ").upper()
     while column not in "ABCDEFGH":
-        print(red + "Invalid Input. Please enter a letter(A-H)\n" + end_color)
+        print(RED + "Invalid Input. Please enter a letter(A-H)\n" + END_COLOR)
         column = input("\nPlease enter a COLUMN (A-H): ").upper()
     return int(row) - 1, letters_to_numbers[column]
 
@@ -99,7 +117,7 @@ def count_hits(board):
     count = 0
     for row in board:
         for column in row:
-            if column == red + "X" + end_color:
+            if column == RED + "X" + END_COLOR:
                 count += 1
     return count
 
@@ -117,27 +135,28 @@ def play_game():
         create_board(HIDDEN_BRD)
         print("hidden board : test")
         create_board(GUESS_BRD)
-        print(green + "   COMPUTER GRID" + end_color)
+        print(GREEN + "   COMPUTER GRID" + END_COLOR)
         create_board(HIDDEN_COMP_BRD)
-        print(green + "    PLAYER GRID" + end_color)
+        print(GREEN + "    PLAYER GRID" + END_COLOR)
         row, column = user_input()
         if GUESS_BRD[row][column] == "-":
-            print(yellow + f"\nYou've already guessed that, PLEASE TRY AGAIN\n" + end_color)
+            print(YELLOW + f"\nYou've already guessed that, PLEASE TRY AGAIN\n" + END_COLOR)
         elif HIDDEN_BRD[row][column] == "X":
-            print(green + "\nWell done! You hit the ship!\n" + end_color)
+            print(GREEN + "\nWell done! You hit the ship!\n" + END_COLOR)
             GUESS_BRD[row][column] = red + "X" + end_color
         else:
-            print(yellow + "\nSorry, you missed!\n" + end_color)
-            GUESS_BRD[row][column] = yellow + "O" + end_color
+            print(YELLOW + "\nSorry, you missed!\n" + END_COLOR)
+            GUESS_BRD[row][column] = YELLOW + "O" + END_COLOR
             turns -= 1
             
         if count_hits(GUESS_BRD) == 5:
-            print(yellow + "CONGRADULATIONS! You hit all the battleships. \n")
-            print(red + "GAME OVER" + end_color)
+            print(YELLOW + "CONGRADULATIONS! You hit all the battleships. \n")
+            print(RED + "GAME OVER" + end_color)
             break
-        print(green + "You have " + str(turns) + " turns remaining.\n" + end_color)
+        
+        print(GREEN + "You have " + str(turns) + " turns remaining.\n" + END_COLOR)
         if turns == 0:
-            print(red + "No more turns. Game Over.")
+            print(RED + "No more turns. Game Over.")
             break
         
 
@@ -147,9 +166,15 @@ def main():
     Calls all functions to start game
     """
     print_rules()
+    rules = input(f"Do you wish to continue? Y/N: ").upper()
+    if rules != "Y":
+        print("We're sorry to see you go!")
+        return
+
     create_ships(HIDDEN_BRD)
     create_ships(HIDDEN_COMP_BRD)
     play_game()
 
 
-start = main()
+if __name__ == "__main__":
+    main()
