@@ -53,7 +53,8 @@ def print_rules():
     
         # unable to exit loop here, figure out how to exit game? BREAK doesn't work
 
-    
+    username = input(GREEN + "Please enter your username: " + WHITE)
+    rules = input(f"Welcome to Battleships {YELLOW + username.upper() + WHITE}!\nThere are 5 Ships to Hit, and 10 turns.\nHit ships will show" + RED + " X" + WHITE + "\nMissed ships will show" + YELLOW + " O" + WHITE + "\nDo you wish to continue? Y/N: ").upper()
     
     
 def create_board(board):

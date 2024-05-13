@@ -10,7 +10,7 @@ GREEN = "\u001b[32m"
 RED = "\u001b[31m"
 YELLOW = "\u001b[33m"
 CYAN = "\u001b[36m"
-WHITE = "\u001b[37;1m" # "BRIGHT White"
+WHITE = "\u001b[37;1m" # "BRIGHT/BOLD White"
 
 # LEGEND 
 # "X" for placing battleship and hit battleship
@@ -32,7 +32,7 @@ COMP_GUESS_BRD = [[CYAN + "~" + WHITE] * GRID_SIZE for x in range(GRID_SIZE)]
 letters_to_numbers = {"A" : 0, "B" : 1, "C" : 2, "D" : 3, "E" : 4, "F" : 5, 
                       "G" : 6, "H" : 7}
 
-# Creating functions we need:
+# Functions
 
 def print_rules():
     """
@@ -40,10 +40,10 @@ def print_rules():
     "Do you want to proceed Y/N" Text input to check
     if user wants to continue 
     """
-    username = input(GREEN + "Please enter your username: " + WHITE)
-    rules = input(f"Welcome to Battleships {YELLOW + username.upper() + WHITE}!\nThere are 5 Ships to Hit, and 10 turns.\nHit ships will show" + RED + " X" + WHITE + "\nMissed ships will show" + YELLOW + " O" + WHITE + "\nDo you wish to continue? Y/N: ").upper()
+    username = input(WHITE + "Please enter your username: " + CYAN)
+    rules = input(WHITE + f"Welcome to Battleships {YELLOW + username.upper() + WHITE}!\nThere are 5 Ships to Hit, and 10 turns.\nHit ships will show" + RED + " X" + WHITE + "\nMissed ships will show" + YELLOW + " O" + WHITE + "\nDo you wish to continue? Y/N: ").upper()
     if rules != "Y":
-        print("We're sorry to see you go!")
+        print(CYAN + "We're sorry to see you go!" + WHITE)
         exit_game()
 
     
@@ -89,6 +89,7 @@ def user_input():
         column = input("\nPlease enter a COLUMN (A-H): ").upper()
     return int(row) - 1, letters_to_numbers[column]
 
+
             
 def computer_turn():
     """
@@ -132,7 +133,7 @@ def play_game():
             print(YELLOW + "\nSorry, you missed!\n" + WHITE)
             GUESS_BRD[row][column] = YELLOW + "O" + WHITE
             turns -= 1
-            
+        
         if count_hits(GUESS_BRD) == 5:
             print(YELLOW + "CONGRADULATIONS! You hit all the battleships. \n")
             print(RED + "GAME OVER" + WHITE)
@@ -141,11 +142,14 @@ def play_game():
         if turns == 0:
             print(RED + "No more turns. Game Over.")
             break
-        
-def exit_game():
-    print("Exiting the program...")
-    sys.exit(0)
 
+
+def exit_game():
+    """
+    exits program
+    """
+    print(RED + "Exiting the program..." + WHITE)
+    sys.exit(0)
 
 
 def main():
@@ -156,6 +160,12 @@ def main():
     create_ships(HIDDEN_BRD)
     create_ships(HIDDEN_COMP_BRD)
     play_game()
+
+    # Don't know how to fix?
+    while user_input(row) or user_input(column) == "$":
+        print("see you later!")
+        exit_game
+        
 
 
 if __name__ == "__main__":
