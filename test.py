@@ -99,7 +99,7 @@ def user_input():
     while row not in "12345678":
         print(RED + "Invalid Input. Please enter a number(1-8)\n" + END_COLOR)
         row = input("\nPlease enter a ROW (1-8): ")
-    column = input("\nPlease enter a COLUMN (A-H): ").upper()
+    column = column = input("\nPlease enter a COLUMN (A-H): ").upper()
     while column not in "ABCDEFGH":
         print(RED + "Invalid Input. Please enter a letter(A-H)\n" + END_COLOR)
         column = input("\nPlease enter a COLUMN (A-H): ").upper()
@@ -156,7 +156,8 @@ def play_game():
         
         print(GREEN + "You have " + str(turns) + " turns remaining.\n" + END_COLOR)
         if turns == 0:
-            print(RED + "No more turns. Game Over.")
+            print(RED
+             + "No more turns. Game Over.")
             break
         
 

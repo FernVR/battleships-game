@@ -77,16 +77,18 @@ def user_input():
     the input will run again until a user inputs a valid input.
     """
     row = input("\nPlease enter a ROW (1-8): ")
+    # Letters to numbers.values() didn't work without creating errors
     while row not in "12345678":
         print(RED + "Invalid Input. Please enter a number(1-8)\n" + WHITE)
         row = input("\nPlease enter a ROW (1-8): ")
     column = input("\nPlease enter a COLUMN (A-H): ").upper()
-    while column not in "ABCDEFGH":
+    # letters to numbers works here??
+    while column not in letters_to_numbers.keys():
         print(RED + "Invalid Input. Please enter a letter(A-H)\n" + WHITE)
         column = input("\nPlease enter a COLUMN (A-H): ").upper()
     return int(row) - 1, letters_to_numbers[column]
 
-
+            
 def computer_turn():
     """
     Generates computer turn
@@ -120,7 +122,7 @@ def play_game():
         create_board(HIDDEN_COMP_BRD)
         print(GREEN + "    PLAYER GRID" + WHITE)
         row, column = user_input()
-        if GUESS_BRD[row][column] == "-":
+        if GUESS_BRD[row][column] == "O":
             print(YELLOW + f"\nYou've already guessed that, PLEASE TRY AGAIN\n" + WHITE)
         elif HIDDEN_BRD[row][column] == "X":
             print(GREEN + "\nWell done! You hit the ship!\n" + WHITE)
@@ -151,4 +153,5 @@ def main():
     play_game()
 
 
-start = main()
+if __name__ == "__main__":
+    main()
