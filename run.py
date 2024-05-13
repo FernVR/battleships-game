@@ -4,11 +4,12 @@ import random
 import time
 
 # ANSI Escape codes
-blue = "\u001b[34m"
-green = "\u001b[32m"
-red = "\u001b[31;1m"
-yellow = "\u001b[33m"
-end_color = "\u001b[37;1m" # "BRIGHT White"
+BLUE = "\u001b[34m"
+GREEN = "\u001b[32m"
+RED = "\u001b[31m"
+YELLOW = "\u001b[33m"
+CYAN = "\u001b[36m"
+WHITE = "\u001b[37;1m" # "BRIGHT White"
 
 # LEGEND 
 # "X" for placing battleship and hit battleship
@@ -19,12 +20,12 @@ end_color = "\u001b[37;1m" # "BRIGHT White"
 GRID_SIZE = 8
 
 # Generates 8 empty slots for game board
-HIDDEN_BRD = [[blue + "~" + end_color] * GRID_SIZE for x in range(GRID_SIZE)]
-GUESS_BRD = [[blue + "~" + end_color] * GRID_SIZE for x in range(GRID_SIZE)]
+HIDDEN_BRD = [[CYAN + "~" + WHITE] * GRID_SIZE for x in range(GRID_SIZE)]
+GUESS_BRD = [[CYAN + "~" + WHITE] * GRID_SIZE for x in range(GRID_SIZE)]
 
 # Computer board for computer guess ?
-HIDDEN_COMP_BRD = [[blue + "~" + end_color] * GRID_SIZE for x in range(GRID_SIZE)]
-COMP_GUESS_BRD = [[blue + "~" + end_color] * GRID_SIZE for x in range(GRID_SIZE)]
+HIDDEN_COMP_BRD = [[CYAN + "~" + WHITE] * GRID_SIZE for x in range(GRID_SIZE)]
+COMP_GUESS_BRD = [[CYAN + "~" + WHITE] * GRID_SIZE for x in range(GRID_SIZE)]
 
 # Converts letters to number/ position 
 letters_to_numbers = {"A" : 0, "B" : 1, "C" : 2, "D" : 3, "E" : 4, "F" : 5, 
@@ -38,14 +39,12 @@ def print_rules():
     "Do you want to proceed Y/N" Text input to check
     if user wants to continue 
     """
-    username = input(green + "Please enter your username: " + end_color)
-    rules = input(f"Welcome to Battleships {yellow + username.upper() + end_color}!\nThere are 5 Ships to Hit, and 10 turns.\nHit ships will show" + red + " X" + end_color + "\nMissed ships will show" + yellow + " O" + end_color + "\nDo you wish to continue? Y/N: ").upper()
-    if rules != "y":
+    username = input(GREEN + "Please enter your username: " + WHITE)
+    rules = input(f"Welcome to Battleships {YELLOW + username.upper() + WHITE}!\nThere are 5 Ships to Hit, and 10 turns.\nHit ships will show" + RED + " X" + WHITE + "\nMissed ships will show" + YELLOW + " O" + WHITE + "\nDo you wish to continue? Y/N: ").upper()
+    if rules != "Y":
         print("We're sorry to see you go!")
         # unable to exit loop here, figure out how to exit game? BREAK doesn't work
 
-    
-    
     
 def create_board(board):
     """
@@ -79,11 +78,11 @@ def user_input():
     """
     row = input("\nPlease enter a ROW (1-8): ")
     while row not in "12345678":
-        print(red + "Invalid Input. Please enter a number(1-8)\n" + end_color)
+        print(RED + "Invalid Input. Please enter a number(1-8)\n" + WHITE)
         row = input("\nPlease enter a ROW (1-8): ")
     column = input("\nPlease enter a COLUMN (A-H): ").upper()
     while column not in "ABCDEFGH":
-        print(red + "Invalid Input. Please enter a letter(A-H)\n" + end_color)
+        print(RED + "Invalid Input. Please enter a letter(A-H)\n" + WHITE)
         column = input("\nPlease enter a COLUMN (A-H): ").upper()
     return int(row) - 1, letters_to_numbers[column]
 
@@ -99,7 +98,7 @@ def count_hits(board):
     count = 0
     for row in board:
         for column in row:
-            if column == red + "X" + end_color:
+            if column == RED + "X" + WHITE:
                 count += 1
     return count
 
@@ -117,27 +116,27 @@ def play_game():
         create_board(HIDDEN_BRD)
         print("hidden board : test")
         create_board(GUESS_BRD)
-        print(green + "   COMPUTER GRID" + end_color)
+        print(GREEN + "   COMPUTER GRID" + WHITE)
         create_board(HIDDEN_COMP_BRD)
-        print(green + "    PLAYER GRID" + end_color)
+        print(GREEN + "    PLAYER GRID" + WHITE)
         row, column = user_input()
         if GUESS_BRD[row][column] == "-":
-            print(yellow + f"\nYou've already guessed that, PLEASE TRY AGAIN\n" + end_color)
+            print(YELLOW + f"\nYou've already guessed that, PLEASE TRY AGAIN\n" + WHITE)
         elif HIDDEN_BRD[row][column] == "X":
-            print(green + "\nWell done! You hit the ship!\n" + end_color)
-            GUESS_BRD[row][column] = red + "X" + end_color
+            print(GREEN + "\nWell done! You hit the ship!\n" + WHITE)
+            GUESS_BRD[row][column] = RED + "X" + WHITE
         else:
-            print(yellow + "\nSorry, you missed!\n" + end_color)
-            GUESS_BRD[row][column] = yellow + "O" + end_color
+            print(YELLOW + "\nSorry, you missed!\n" + WHITE)
+            GUESS_BRD[row][column] = YELLOW + "O" + WHITE
             turns -= 1
             
         if count_hits(GUESS_BRD) == 5:
-            print(yellow + "CONGRADULATIONS! You hit all the battleships. \n")
-            print(red + "GAME OVER" + end_color)
+            print(YELLOW + "CONGRADULATIONS! You hit all the battleships. \n")
+            print(RED + "GAME OVER" + WHITE)
             break
-        print(green + "You have " + str(turns) + " turns remaining.\n" + end_color)
+        print(GREEN + "You have " + str(turns) + " turns remaining.\n" + WHITE)
         if turns == 0:
-            print(red + "No more turns. Game Over.")
+            print(RED + "No more turns. Game Over.")
             break
         
 
