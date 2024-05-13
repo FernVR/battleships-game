@@ -2,6 +2,7 @@
 from random import randint
 import random
 import time
+import sys
 
 # ANSI Escape codes
 BLUE = "\u001b[34m"
@@ -43,7 +44,7 @@ def print_rules():
     rules = input(f"Welcome to Battleships {YELLOW + username.upper() + WHITE}!\nThere are 5 Ships to Hit, and 10 turns.\nHit ships will show" + RED + " X" + WHITE + "\nMissed ships will show" + YELLOW + " O" + WHITE + "\nDo you wish to continue? Y/N: ").upper()
     if rules != "Y":
         print("We're sorry to see you go!")
-        # unable to exit loop here, figure out how to exit game? BREAK doesn't work
+        exit_game()
 
     
 def create_board(board):
@@ -141,6 +142,10 @@ def play_game():
             print(RED + "No more turns. Game Over.")
             break
         
+def exit_game():
+    print("Exiting the program...")
+    sys.exit(0)
+
 
 
 def main():
