@@ -96,7 +96,7 @@ def user_input():
     """
     row = input("\nPlease enter a ROW (1-8): ")
     # Letters to numbers.values() didn't work without creating errors
-    while row not in "12345678" or row == "":
+    while row not in ["1", "2", "3", "4", "5", "6", "7", "8"] or row == "":
         print(RED + "Invalid Input. Please enter a number(1-8)\n" + WHITE)
         row = input("\nPlease enter a ROW (1-8): ")
     column = input("\nPlease enter a COLUMN (A-H): ").upper()
@@ -182,10 +182,6 @@ def main():
     create_ships(HIDDEN_COMP_BRD)
     play_game()
 
-    # Don't know how to fix?
-    while user_input(row) or user_input(column) == "$":
-        print("see you later!")
-        exit_game()
         
 
 
