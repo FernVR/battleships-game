@@ -96,7 +96,7 @@ def user_input():
     """
     row = input("\nPlease enter a ROW (1-8): ")
     # Letters to numbers.values() didn't work without creating errors
-    while row not in "12345678":
+    while row not in "12345678" or row == "":
         print(RED + "Invalid Input. Please enter a number(1-8)\n" + WHITE)
         row = input("\nPlease enter a ROW (1-8): ")
     column = input("\nPlease enter a COLUMN (A-H): ").upper()
@@ -123,6 +123,7 @@ def computer_turn():
     """
     comp_row = random.randint(0, GRID_SIZE - 1)
     comp_col = random.randint(0, GRID_SIZE - 1)
+
     print("computer turn input!!")
 
 
@@ -143,7 +144,7 @@ def play_game():
         create_board(GUESS_BRD)
         print(GREEN + "  COMPUTER'S GRID" + WHITE)
         row, column = user_input()
-        if GUESS_BRD[row][column] == "O":
+        if GUESS_BRD[row][column] == YELLOW + "O" + WHITE:
             print(YELLOW + f"\nYou've already guessed that, PLEASE TRY AGAIN\n" + WHITE)
         elif HIDDEN_BRD[row][column] == "X":
             print(GREEN + "\nWell done! You hit the ship!\n" + WHITE)
