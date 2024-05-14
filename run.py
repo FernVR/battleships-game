@@ -32,6 +32,22 @@ COMP_GUESS_BRD = [[CYAN + "~" + WHITE] * GRID_SIZE for x in range(GRID_SIZE)]
 letters_to_numbers = {"A" : 0, "B" : 1, "C" : 2, "D" : 3, "E" : 4, "F" : 5, 
                       "G" : 6, "H" : 7}
 
+# CONST Variables
+USERNAME = input(WHITE + "Please enter your username: " + CYAN)
+if USERNAME == "":
+    USERNAME = "PLAYER"
+
+RULES = f"""
+        Welcome to Battleships, {YELLOW + USERNAME.upper() + WHITE}!
+        --------------------------------
+        Rules are as follows:
+        1. 
+        2.
+        3.
+        4.
+        5.
+        """
+
 # Functions
 
 def print_rules():
@@ -40,9 +56,10 @@ def print_rules():
     "Do you want to proceed Y/N" Text input to check
     if user wants to continue 
     """
-    username = input(WHITE + "Please enter your username: " + CYAN)
-    rules = input(WHITE + f"Welcome to Battleships {YELLOW + username.upper() + WHITE}!\nThere are 5 Ships to Hit, and 10 turns.\nHit ships will show" + RED + " X" + WHITE + "\nMissed ships will show" + YELLOW + " O" + WHITE + "\nDo you wish to continue? Y/N: ").upper()
-    if rules != "Y":
+    print(WHITE + RULES)
+    print("Do you wish to continue?")
+    rules_input= input("Press" + YELLOW + " Y " + WHITE + "to play\nOr any key to exit game: ")
+    if rules_input != "y":
         print(CYAN + "We're sorry to see you go!" + WHITE)
         exit_game()
 
@@ -90,13 +107,6 @@ def user_input():
     return int(row) - 1, letters_to_numbers[column]
 
 
-            
-def computer_turn():
-    """
-    Generates computer turn
-    Validates the guess, Hit or Miss
-    """
-
 
 def count_hits(board):
     count = 0
@@ -105,6 +115,15 @@ def count_hits(board):
             if column == RED + "X" + WHITE:
                 count += 1
     return count
+
+def computer_turn():
+    """
+    Generates computer turn
+    Validates the guess, Hit or Miss
+    """
+    comp_row = random.randint(0, GRID_SIZE - 1)
+    comp_col = random.randint(0, GRID_SIZE - 1)
+    print("computer turn input!!")
 
 
 def play_game():
@@ -119,10 +138,10 @@ def play_game():
     while turns > 0:
         create_board(HIDDEN_BRD)
         print("hidden board : test")
-        create_board(GUESS_BRD)
-        print(GREEN + "   COMPUTER GRID" + WHITE)
         create_board(HIDDEN_COMP_BRD)
-        print(GREEN + "    PLAYER GRID" + WHITE)
+        print(GREEN + f"   {USERNAME.upper()}'S GRID" + WHITE)
+        create_board(GUESS_BRD)
+        print(GREEN + "  COMPUTER'S GRID" + WHITE)
         row, column = user_input()
         if GUESS_BRD[row][column] == "O":
             print(YELLOW + f"\nYou've already guessed that, PLEASE TRY AGAIN\n" + WHITE)
@@ -142,6 +161,7 @@ def play_game():
         if turns == 0:
             print(RED + "No more turns. Game Over.")
             break
+        computer_turn()
 
 
 def exit_game():
@@ -164,7 +184,7 @@ def main():
     # Don't know how to fix?
     while user_input(row) or user_input(column) == "$":
         print("see you later!")
-        exit_game
+        exit_game()
         
 
 

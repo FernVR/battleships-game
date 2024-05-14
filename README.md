@@ -36,32 +36,38 @@ Happy coding!
 # Battleship Game
 
 ## Overview 
+## How To Play
 ## Deployed Site
 
 # Contents
 contents table
 
 # User Experience (UX)
-
 ## User Stories
 
 # Workflow
-
-## Pseudocode 
+ 
 ## Flowchat
 ## Wireframe 
  wireframe sketches screenshots (function planning etc)
 
-# Features 
+# Features
+## Existing Features
+## Future Features
+### Random Board Generation
+(screenshot)
+### Input Validation and Error Checking
+(screenshot)
+ 
 
 # Testing 
 
 ## Manual Testing
-    manual testing grids (screenshot)
+ manual testing grids (screenshot)
 ## Validator Testing
-    CI Python Linter Validator.
+CI Python Linter Validator.
 ## Lighthouse Testing
-    screenshot of DEPLOYED lighthouse test
+screenshot of DEPLOYED lighthouse test
 ## Bugs
 ### Fixed Bugs
 ### Known Bugs
