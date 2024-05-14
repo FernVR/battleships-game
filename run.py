@@ -202,3 +202,4 @@ if __name__ == "__main__":
     main()
 
 # NB: figure out how to exit game during game run 
+# get rid of turns
