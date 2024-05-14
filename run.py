@@ -17,6 +17,8 @@ WHITE = "\u001b[37;1m" # "BRIGHT/BOLD White"
 # "~" for available space
 # "O" for missed shot
 
+
+
 # Grid size variable can be adjusted 
 GRID_SIZE = 8
 
@@ -135,10 +137,10 @@ def play_game():
     checks if user has already made the same move and notifies them
     User only loses a turn if they miss
     """
-    turns = 10
+    turns = 100
     while turns > 0:
-        create_board(HIDDEN_BRD)
-        print("hidden board : test")
+       # create_board(HIDDEN_BRD)
+       #print("hidden board : test")
         create_board(HIDDEN_COMP_BRD)
         print(GREEN + f"   {USERNAME.upper()}'S GRID" + WHITE)
         create_board(GUESS_BRD)
@@ -154,6 +156,19 @@ def play_game():
             GUESS_BRD[row][column] = YELLOW + "O" + WHITE
             turns -= 1
         
+        # Computer Turn
+        row, column = random.randint(0, GRID_SIZE - 1), random.randint(0, GRID_SIZE - 1)
+        while HIDDEN_COMP_BRD[row][column] == RED + "X" + WHITE or HIDDEN_COMP_BRD[row][column] == YELLOW + "O" + WHITE:
+            row, column = random.randint(0, GRID_SIZE - 1), random.randint(0, GRID_SIZE - 1)
+        if HIDDEN_COMP_BRD[row][column] == "X":
+            HIDDEN_COMP_BRD[row][column] = RED + "X" + WHITE
+            print(RED + f"Computer HIT Ship at: " + str(row) + "," + str(column) + WHITE)
+        else:
+            HIDDEN_COMP_BRD[row][column] = YELLOW + "O" + WHITE
+            print(YELLOW + f"Computer MISSED Ship at: " + str(row) + "," + str(column) + WHITE)
+
+
+        
         if count_hits(GUESS_BRD) == 5:
             print(YELLOW + "CONGRADULATIONS! You hit all the battleships. \n")
             print(RED + "GAME OVER" + WHITE)
@@ -162,7 +177,7 @@ def play_game():
         if turns == 0:
             print(RED + "No more turns. Game Over.")
             break
-        computer_turn()
+        
 
 
 def exit_game():
