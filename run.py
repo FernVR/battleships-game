@@ -82,12 +82,12 @@ def create_board(board):
 
 def create_ships(board):
     """
-    Creates ships with random numbers between 0-7
+    Creates ships with random numbers from grid size
     """
     for ship in range(5):
-        ship_row, ship_col = randint(0, 7), randint(0, 7)
+        ship_row, ship_col = randint(0, GRID_SIZE - 1), randint(0, GRID_SIZE - 1)
         while board[ship_row][ship_col] == "X":
-            ship_row, ship_col = randint(0, 7), randint(0, 7)
+            ship_row, ship_col = randint(0, GRID_SIZE - 1), randint(0, GRID_SIZE -1)
         board[ship_row][ship_col] = "X"
 
 
