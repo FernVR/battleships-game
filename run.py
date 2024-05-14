@@ -17,18 +17,20 @@ WHITE = "\u001b[37;1m" # "BRIGHT/BOLD White"
 # "~" for available space
 # "O" for missed shot
 
-
+HIT = "X"
+MISS = "O"
+AVAILABLE = "~"
 
 # Grid size variable can be adjusted 
 GRID_SIZE = 8
 
 # Generates 8 empty slots for game board
-HIDDEN_BRD = [[CYAN + "~" + WHITE] * GRID_SIZE for x in range(GRID_SIZE)]
-GUESS_BRD = [[CYAN + "~" + WHITE] * GRID_SIZE for x in range(GRID_SIZE)]
+HIDDEN_BRD = [[CYAN + AVAILABLE + WHITE] * GRID_SIZE for x in range(GRID_SIZE)]
+GUESS_BRD = [[CYAN + AVAILABLE + WHITE] * GRID_SIZE for x in range(GRID_SIZE)]
 
 # Computer board for computer guess ?
-HIDDEN_COMP_BRD = [[CYAN + "~" + WHITE] * GRID_SIZE for x in range(GRID_SIZE)]
-COMP_GUESS_BRD = [[CYAN + "~" + WHITE] * GRID_SIZE for x in range(GRID_SIZE)]
+HIDDEN_COMP_BRD = [[CYAN + AVAILABLE + WHITE] * GRID_SIZE for x in range(GRID_SIZE)]
+COMP_GUESS_BRD = [[CYAN + AVAILABLE + WHITE] * GRID_SIZE for x in range(GRID_SIZE)]
 
 # Converts letters to number/ position 
 letters_to_numbers = {"A" : 0, "B" : 1, "C" : 2, "D" : 3, "E" : 4, "F" : 5, 
@@ -97,27 +99,25 @@ def user_input():
     the input will run again until a user inputs a valid input.
     """
     row = input("\nPlease enter a ROW (1-8): ")
-    # Letters to numbers.values() didn't work without creating errors
     while row not in ["1", "2", "3", "4", "5", "6", "7", "8"] or row == "":
         print(RED + "Invalid Input. Please enter a number(1-8)\n" + WHITE)
         row = input("\nPlease enter a ROW (1-8): ")
     column = input("\nPlease enter a COLUMN (A-H): ").upper()
-    # letters to numbers works here??
     while column not in letters_to_numbers.keys():
         print(RED + "Invalid Input. Please enter a letter(A-H)\n" + WHITE)
         column = input("\nPlease enter a COLUMN (A-H): ").upper()
     return int(row) - 1, letters_to_numbers[column]
 
 
-
 def count_hits(board):
     count = 0
     for row in board:
         for column in row:
-            if column == RED + "X" + WHITE:
+            if column == RED + HIT + WHITE:
                 count += 1
     return count
 
+# to be deleted?
 def computer_turn():
     """
     Generates computer turn
@@ -137,10 +137,10 @@ def play_game():
     checks if user has already made the same move and notifies them
     User only loses a turn if they miss
     """
-    turns = 100
+    turns = 65
     while turns > 0:
-       # create_board(HIDDEN_BRD)
-       #print("hidden board : test")
+        create_board(HIDDEN_BRD)
+        print("hidden player board : test")
         create_board(HIDDEN_COMP_BRD)
         print(GREEN + f"   {USERNAME.upper()}'S GRID" + WHITE)
         create_board(GUESS_BRD)
@@ -150,35 +150,35 @@ def play_game():
             print(YELLOW + f"\nYou've already guessed that, PLEASE TRY AGAIN\n" + WHITE)
         elif HIDDEN_BRD[row][column] == "X":
             print(GREEN + "\nWell done! You hit the ship!\n" + WHITE)
-            GUESS_BRD[row][column] = RED + "X" + WHITE
+            GUESS_BRD[row][column] = RED + HIT + WHITE
         else:
             print(YELLOW + "\nSorry, you missed!\n" + WHITE)
-            GUESS_BRD[row][column] = YELLOW + "O" + WHITE
+            GUESS_BRD[row][column] = YELLOW + MISS + WHITE
             turns -= 1
         
         # Computer Turn
         row, column = random.randint(0, GRID_SIZE - 1), random.randint(0, GRID_SIZE - 1)
-        while HIDDEN_COMP_BRD[row][column] == RED + "X" + WHITE or HIDDEN_COMP_BRD[row][column] == YELLOW + "O" + WHITE:
+        while HIDDEN_COMP_BRD[row][column] == RED + HIT + WHITE or HIDDEN_COMP_BRD[row][column] == YELLOW + MISS + WHITE:
             row, column = random.randint(0, GRID_SIZE - 1), random.randint(0, GRID_SIZE - 1)
         if HIDDEN_COMP_BRD[row][column] == "X":
-            HIDDEN_COMP_BRD[row][column] = RED + "X" + WHITE
+            HIDDEN_COMP_BRD[row][column] = RED + HIT + WHITE
             print(RED + f"Computer HIT Ship at: " + str(row) + "," + str(column) + WHITE)
         else:
-            HIDDEN_COMP_BRD[row][column] = YELLOW + "O" + WHITE
+            HIDDEN_COMP_BRD[row][column] = YELLOW + MISS + WHITE
             print(YELLOW + f"Computer MISSED Ship at: " + str(row) + "," + str(column) + WHITE)
-
-
-        
+        if count_hits(HIDDEN_COMP_BRD) == 5:
+            print(RED + "SORRY... COMPUTER Hit all the ships. YOU LOSE")
+            print(RED + "GAME OVER" + WHITE)
+            break
         if count_hits(GUESS_BRD) == 5:
             print(YELLOW + "CONGRADULATIONS! You hit all the battleships. \n")
             print(RED + "GAME OVER" + WHITE)
             break
-        print(GREEN + "You have " + str(turns) + " turns remaining.\n" + WHITE)
+        # print(GREEN + "You have " + str(turns) + " turns remaining.\n" + WHITE)
         if turns == 0:
             print(RED + "No more turns. Game Over.")
             break
         
-
 
 def exit_game():
     """
@@ -198,7 +198,7 @@ def main():
     play_game()
 
         
-
-
 if __name__ == "__main__":
     main()
+
+# NB: figure out how to exit game during game run 
