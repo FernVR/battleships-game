@@ -26,7 +26,7 @@ AVAILABLE = CYAN + "~" + WHITE
 GRID_SIZE = 8
 MAX_SHIPS = 5
 
-create_empty_board = lambda: [[CYAN + AVAILABLE + WHITE] * GRID_SIZE for _ in range(GRID_SIZE)]
+create_empty_board = lambda: [[AVAILABLE] * GRID_SIZE for _ in range(GRID_SIZE)]
 
 # Generates 8 empty slots for game board
 HIDDEN_BRD = create_empty_board()
@@ -120,20 +120,16 @@ def count_hits(board):
     count = 0
     for row in board:
         for column in row:
-            if column == RED + HIT + WHITE:
+            if column == HIT:
                 count += 1
     return count
 
 # to be deleted?
-def computer_turn():
+def computer_input():
     """
-    Generates computer turn
-    Validates the guess, Hit or Miss
+    Generates two random integars 
     """
-    comp_row = random.randint(0, GRID_SIZE - 1)
-    comp_col = random.randint(0, GRID_SIZE - 1)
-
-    print("computer turn input!!")
+    return random.randint(0, GRID_SIZE - 1), random.randint(0, GRID_SIZE - 1)
 
 
 def play_game():
@@ -164,9 +160,9 @@ def play_game():
             turns -= 1
         
         # Computer Turn
-        row, column = random.randint(0, GRID_SIZE - 1), random.randint(0, GRID_SIZE - 1)
-        while HIDDEN_COMP_BRD[row][column] == RED + HIT + WHITE or HIDDEN_COMP_BRD[row][column] == YELLOW + MISS + WHITE:
-            row, column = random.randint(0, GRID_SIZE - 1), random.randint(0, GRID_SIZE - 1)
+        row, column = computer_input()
+        while HIDDEN_COMP_BRD[row][column] == HIT or HIDDEN_COMP_BRD[row][column] == MISS:
+            row, column = computer_input()
         if HIDDEN_COMP_BRD[row][column] == "X":
             HIDDEN_COMP_BRD[row][column] = HIT
             print(RED + f"Computer HIT Ship at: " + str(row) + "," + str(column) + WHITE)
