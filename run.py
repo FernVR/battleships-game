@@ -23,14 +23,17 @@ AVAILABLE = "~"
 
 # Grid size variable can be adjusted 
 GRID_SIZE = 8
+MAX_SHIPS = 5
+
+create_empty_board = lambda: [[CYAN + AVAILABLE + WHITE] * GRID_SIZE for _ in range(GRID_SIZE)]
 
 # Generates 8 empty slots for game board
-HIDDEN_BRD = [[CYAN + AVAILABLE + WHITE] * GRID_SIZE for x in range(GRID_SIZE)]
-GUESS_BRD = [[CYAN + AVAILABLE + WHITE] * GRID_SIZE for x in range(GRID_SIZE)]
+HIDDEN_BRD = create_empty_board()
+GUESS_BRD = create_empty_board()
 
 # Computer board for computer guess ?
-HIDDEN_COMP_BRD = [[CYAN + AVAILABLE + WHITE] * GRID_SIZE for x in range(GRID_SIZE)]
-COMP_GUESS_BRD = [[CYAN + AVAILABLE + WHITE] * GRID_SIZE for x in range(GRID_SIZE)]
+HIDDEN_COMP_BRD = create_empty_board()
+COMP_GUESS_BRD = create_empty_board()
 
 # Converts letters to number/ position 
 letters_to_numbers = {"A" : 0, "B" : 1, "C" : 2, "D" : 3, "E" : 4, "F" : 5, 
