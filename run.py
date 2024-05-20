@@ -203,3 +203,4 @@ if __name__ == "__main__":
 
 # NB: figure out how to exit game during game run 
 # get rid of turns
+# create a clear terminal function and clear terminal with each turn
