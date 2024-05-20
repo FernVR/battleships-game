@@ -3,6 +3,7 @@ from random import randint
 import random
 import time
 import sys
+import os
 import string
 
 # ANSI Escape codes
@@ -57,6 +58,13 @@ RULES = f"""
         """
 
 # Functions
+
+def clear_terminal():
+    """
+    clears terminal
+    """
+    os.system("cls" if os.name == "nt" else "clear")
+
 
 def print_rules():
     """
@@ -144,6 +152,7 @@ def play_game():
     """
     turns = 65
     while turns > 0:
+        
         print_board(HIDDEN_BRD)
         print("hidden player board : test")
         print_board(HIDDEN_COMP_BRD)
@@ -184,6 +193,7 @@ def play_game():
         if turns == 0:
             print(RED + "No more turns. Game Over.")
             break
+    
         
 
 def exit_game():
