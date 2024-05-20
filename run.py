@@ -99,10 +99,14 @@ def user_input():
     the input will run again until a user inputs a valid input.
     """
     row = input("\nPlease enter a ROW (1-8): ")
+    if row == "Q":
+        exit_game()
     while row not in ["1", "2", "3", "4", "5", "6", "7", "8"] or row == "":
         print(RED + "Invalid Input. Please enter a number(1-8)\n" + WHITE)
         row = input("\nPlease enter a ROW (1-8): ")
     column = input("\nPlease enter a COLUMN (A-H): ").upper()
+    if column == "Q":
+        exit_game()
     while column not in letters_to_numbers.keys():
         print(RED + "Invalid Input. Please enter a letter(A-H)\n" + WHITE)
         column = input("\nPlease enter a COLUMN (A-H): ").upper()

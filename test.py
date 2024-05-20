@@ -117,7 +117,7 @@ def user_input():
         
         while True:
             row = input("\nPlease enter a ROW (1-8): ")
-            if row == "e":
+            if row == "exit":
                 exit_game()
             
             row = int(row)
@@ -128,7 +128,7 @@ def user_input():
         print(RED + "Invalid Input. Please enter a number(1-8)\n" + WHITE)
 
     column = input("\nPlease enter a COLUMN (A-H): ").upper()
-    if column == "e":
+    if column == "exit":
         exit_game()
         
     while column not in BOARD_ROW_TO_COLUMNS_MAP.keys():
