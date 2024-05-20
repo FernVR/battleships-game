@@ -23,12 +23,12 @@ MISS = YELLOW + "O" + WHITE
 AVAILABLE = CYAN + "~" + WHITE
 
 # Grid size and No. of ships can be adjusted 
-GRID_SIZE = 7
-MAX_SHIPS = 5
+GRID_SIZE = 6
+MAX_SHIPS = 4
 
 create_empty_board = lambda: [[AVAILABLE] * GRID_SIZE for _ in range(GRID_SIZE)]
 
-# Generates 8 empty slots for game board
+
 HIDDEN_BRD = create_empty_board()
 GUESS_BRD = create_empty_board()
 
@@ -50,7 +50,7 @@ RULES = f"""
         Rules are as follows:
         1. You will be looking for hidden ships on the computer's grid.
         2. The computer will guess for the ships on your grid.
-        3. You will be asked for row(1-8) and column(A-H) inputs.
+        3. You will be asked for a row (a NUMBER) and a column (a LETTER).
         4. The winner is the player that guesses all the ships first!
         5. To EXIT the game, type the letter "Q" (CAPITALIZE IT!)
            into any input, and you will exit the game.
@@ -103,18 +103,18 @@ def user_input():
     If a user enters an invalid input, or NO input, 
     the input will run again until a user inputs a valid input.
     """
-    row = input("\nPlease enter a ROW (1-8): ")
+    row = input("\nPlease enter a ROW (1-6): ")
     if row == "Q":
         exit_game()
-    while row not in ["1", "2", "3", "4", "5", "6", "7", "8"] or row == "":
-        print(RED + "Invalid Input. Please enter a number(1-8)\n" + WHITE)
-        row = input("\nPlease enter a ROW (1-8): ")
-    column = input("\nPlease enter a COLUMN (A-H): ").upper()
+    while row not in ["1", "2", "3", "4", "5", "6"] or row == "":
+        print(RED + "Invalid Input. Please enter a number(1-6)\n" + WHITE)
+        row = input("\nPlease enter a ROW (1-6): ")
+    column = input("\nPlease enter a COLUMN (A-F): ").upper()
     if column == "Q":
         exit_game()
     while column not in BOARD_ROW_TO_COLUMNS_MAP.keys():
-        print(RED + "Invalid Input. Please enter a letter(A-H)\n" + WHITE)
-        column = input("\nPlease enter a COLUMN (A-H): ").upper()
+        print(RED + "Invalid Input. Please enter a letter(A-F)\n" + WHITE)
+        column = input("\nPlease enter a COLUMN (A-F): ").upper()
     return int(row) - 1, BOARD_ROW_TO_COLUMNS_MAP[column]
 
 
@@ -126,7 +126,7 @@ def count_hits(board):
                 count += 1
     return count
 
-# to be deleted?
+
 def computer_input():
     """
     Generates two random integars 
@@ -147,9 +147,9 @@ def play_game():
         print_board(HIDDEN_BRD)
         print("hidden player board : test")
         print_board(HIDDEN_COMP_BRD)
-        print(GREEN + f"   {USERNAME.upper()}'S GRID" + WHITE)
+        print(GREEN + f" {USERNAME.upper()}'S GRID" + WHITE)
         print_board(GUESS_BRD)
-        print(GREEN + "  COMPUTER'S GRID" + WHITE)
+        print(GREEN + "COMPUTER'S GRID" + WHITE)
         row, column = user_input()
         if GUESS_BRD[row][column] == MISS:
             print(YELLOW + f"\nYou've already guessed that, PLEASE TRY AGAIN\n" + WHITE)
@@ -190,6 +190,7 @@ def exit_game():
     """
     exits program
     """
+    print(BLUE + "Thanks for playing!")
     print(RED + "Exiting the program..." + WHITE)
     sys.exit(0)
 
