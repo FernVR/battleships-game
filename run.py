@@ -52,8 +52,8 @@ RULES = f"""
         2. The computer will guess for the ships on your grid.
         3. You will be asked for row(1-8) and column(A-H) inputs.
         4. The winner is the player that guesses all the ships first!
-        5. If you would like to EXIT the game at any point, type the letter "Q" (capitalize it)
-         into any input, and you will exit the game.
+        5. To EXIT the game, type the letter "Q" (CAPITALIZE IT!)
+           into any input, and you will exit the game.
         """
 
 # Functions
