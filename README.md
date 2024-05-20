@@ -104,6 +104,8 @@ Happy coding!
 # Workflow
  
 ## Flowchart
+#### Lucid Chart
+![Flow chart](./assets/readme-images/PP3-flowchart.png)
 ## Wireframe 
  wireframe sketches screenshots (function planning etc)
 
