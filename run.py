@@ -18,9 +18,9 @@ WHITE = "\u001b[37;1m" # "BRIGHT/BOLD White"
 # "~" for available space
 # "O" for missed shot
 
-HIT = "X"
-MISS = "O"
-AVAILABLE = "~"
+HIT = RED + "X" + WHITE
+MISS = YELLOW + "O" + WHITE
+AVAILABLE = CYAN + "~" + WHITE
 
 # Grid size and No. of ships can be adjusted 
 GRID_SIZE = 8
@@ -71,7 +71,7 @@ def print_rules():
         exit_game()
 
     
-def create_board(board):
+def print_board(board):
     """
     creates player grid 
     prints grids to terminal
@@ -83,7 +83,7 @@ def create_board(board):
         row_number += 1
         
 
-def create_ships(board):
+def place_ships(board):
     """
     Creates ships with random numbers from grid size
     """
@@ -146,21 +146,21 @@ def play_game():
     """
     turns = 65
     while turns > 0:
-        create_board(HIDDEN_BRD)
+        print_board(HIDDEN_BRD)
         print("hidden player board : test")
-        create_board(HIDDEN_COMP_BRD)
+        print_board(HIDDEN_COMP_BRD)
         print(GREEN + f"   {USERNAME.upper()}'S GRID" + WHITE)
-        create_board(GUESS_BRD)
+        print_board(GUESS_BRD)
         print(GREEN + "  COMPUTER'S GRID" + WHITE)
         row, column = user_input()
-        if GUESS_BRD[row][column] == YELLOW + "O" + WHITE:
+        if GUESS_BRD[row][column] == MISS:
             print(YELLOW + f"\nYou've already guessed that, PLEASE TRY AGAIN\n" + WHITE)
         elif HIDDEN_BRD[row][column] == "X":
             print(GREEN + "\nWell done! You hit the ship!\n" + WHITE)
-            GUESS_BRD[row][column] = RED + HIT + WHITE
+            GUESS_BRD[row][column] = HIT
         else:
             print(YELLOW + "\nSorry, you missed!\n" + WHITE)
-            GUESS_BRD[row][column] = YELLOW + MISS + WHITE
+            GUESS_BRD[row][column] = MISS
             turns -= 1
         
         # Computer Turn
@@ -168,10 +168,10 @@ def play_game():
         while HIDDEN_COMP_BRD[row][column] == RED + HIT + WHITE or HIDDEN_COMP_BRD[row][column] == YELLOW + MISS + WHITE:
             row, column = random.randint(0, GRID_SIZE - 1), random.randint(0, GRID_SIZE - 1)
         if HIDDEN_COMP_BRD[row][column] == "X":
-            HIDDEN_COMP_BRD[row][column] = RED + HIT + WHITE
+            HIDDEN_COMP_BRD[row][column] = HIT
             print(RED + f"Computer HIT Ship at: " + str(row) + "," + str(column) + WHITE)
         else:
-            HIDDEN_COMP_BRD[row][column] = YELLOW + MISS + WHITE
+            HIDDEN_COMP_BRD[row][column] = MISS
             print(YELLOW + f"Computer MISSED Ship at: " + str(row) + "," + str(column) + WHITE)
         if count_hits(HIDDEN_COMP_BRD) == 5:
             print(RED + "SORRY... COMPUTER Hit all the ships. YOU LOSE")
@@ -200,8 +200,8 @@ def main():
     Calls all functions to start game
     """
     print_rules()
-    create_ships(HIDDEN_BRD)
-    create_ships(HIDDEN_COMP_BRD)
+    place_ships(HIDDEN_BRD)
+    place_ships(HIDDEN_COMP_BRD)
     play_game()
 
         
