@@ -23,7 +23,7 @@ MISS = YELLOW + "O" + WHITE
 AVAILABLE = CYAN + "~" + WHITE
 
 # Grid size and No. of ships can be adjusted 
-GRID_SIZE = 8
+GRID_SIZE = 7
 MAX_SHIPS = 5
 
 create_empty_board = lambda: [[AVAILABLE] * GRID_SIZE for _ in range(GRID_SIZE)]
@@ -77,7 +77,8 @@ def print_board(board):
     creates player grid 
     prints grids to terminal
     """
-    print("\n  A B C D E F G H") 
+    alphabets = " ".join(list(string.ascii_uppercase[0: GRID_SIZE]))
+    print(f"\n  {alphabets}") 
     row_number = 1
     for row in board:
         print("%d|%s|" % (row_number, "|".join(row)))
