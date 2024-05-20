@@ -3,6 +3,7 @@ from random import randint
 import random
 import time
 import sys
+import string
 
 # ANSI Escape codes
 BLUE = "\u001b[34m"
@@ -21,7 +22,7 @@ HIT = "X"
 MISS = "O"
 AVAILABLE = "~"
 
-# Grid size variable can be adjusted 
+# Grid size and No. of ships can be adjusted 
 GRID_SIZE = 8
 MAX_SHIPS = 5
 
@@ -36,8 +37,7 @@ HIDDEN_COMP_BRD = create_empty_board()
 COMP_GUESS_BRD = create_empty_board()
 
 # Converts letters to number/ position 
-letters_to_numbers = {"A" : 0, "B" : 1, "C" : 2, "D" : 3, "E" : 4, "F" : 5, 
-                      "G" : 6, "H" : 7}
+BOARD_ROW_TO_COLUMNS_MAP = dict(zip(string.ascii_uppercase[0: GRID_SIZE], range(GRID_SIZE)))
 
 # CONST Variables
 USERNAME = input(WHITE + "Please enter your username: " + CYAN)
@@ -87,7 +87,7 @@ def create_ships(board):
     """
     Creates ships with random numbers from grid size
     """
-    for ship in range(5):
+    for ship in range(MAX_SHIPS):
         ship_row, ship_col = randint(0, GRID_SIZE - 1), randint(0, GRID_SIZE - 1)
         while board[ship_row][ship_col] == "X":
             ship_row, ship_col = randint(0, GRID_SIZE - 1), randint(0, GRID_SIZE -1)
@@ -110,10 +110,10 @@ def user_input():
     column = input("\nPlease enter a COLUMN (A-H): ").upper()
     if column == "Q":
         exit_game()
-    while column not in letters_to_numbers.keys():
+    while column not in BOARD_ROW_TO_COLUMNS_MAP.keys():
         print(RED + "Invalid Input. Please enter a letter(A-H)\n" + WHITE)
         column = input("\nPlease enter a COLUMN (A-H): ").upper()
-    return int(row) - 1, letters_to_numbers[column]
+    return int(row) - 1, BOARD_ROW_TO_COLUMNS_MAP[column]
 
 
 def count_hits(board):
