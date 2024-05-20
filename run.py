@@ -48,11 +48,12 @@ RULES = f"""
         Welcome to Battleships, {YELLOW + USERNAME.upper() + WHITE}!
         --------------------------------
         Rules are as follows:
-        1. 
-        2.
-        3.
-        4.
-        5.
+        1. You will be looking for hidden ships on the computer's grid.
+        2. The computer will guess for the ships on your grid.
+        3. You will be asked for row(1-8) and column(A-H) inputs.
+        4. The winner is the player that guesses all the ships first!
+        5. If you would like to EXIT the game at any point, type the letter "Q" (capitalize it)
+         into any input, and you will exit the game.
         """
 
 # Functions
@@ -165,15 +166,16 @@ def play_game():
             row, column = computer_input()
         if HIDDEN_COMP_BRD[row][column] == "X":
             HIDDEN_COMP_BRD[row][column] = HIT
-            print(RED + f"Computer HIT Ship at: " + str(row) + "," + str(column) + WHITE)
+            print(RED + "Computer HIT Ship" + WHITE)
         else:
             HIDDEN_COMP_BRD[row][column] = MISS
-            print(YELLOW + f"Computer MISSED Ship at: " + str(row) + "," + str(column) + WHITE)
-        if count_hits(HIDDEN_COMP_BRD) == 5:
+            print(YELLOW + "Computer MISSED Ship" + WHITE)
+        
+        if count_hits(HIDDEN_COMP_BRD) == MAX_SHIPS:
             print(RED + "SORRY... COMPUTER Hit all the ships. YOU LOSE")
             print(RED + "GAME OVER" + WHITE)
             break
-        if count_hits(GUESS_BRD) == 5:
+        if count_hits(GUESS_BRD) == MAX_SHIPS:
             print(YELLOW + "CONGRADULATIONS! You hit all the battleships. \n")
             print(RED + "GAME OVER" + WHITE)
             break
