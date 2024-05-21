@@ -25,7 +25,7 @@ AVAILABLE = CYAN + "~" + WHITE
 
 # Grid size and No. of ships can be adjusted 
 GRID_SIZE = 6
-MAX_SHIPS = 4
+MAX_SHIPS = 5
 
 create_empty_board = lambda: [[AVAILABLE] * GRID_SIZE for _ in range(GRID_SIZE)]
 
@@ -58,6 +58,15 @@ RULES = f"""
         """
 
 # Functions
+
+def exit_game():
+    """
+    exits program
+    """
+    print(BLUE + "Thanks for playing!")
+    print(RED + "Exiting the program..." + WHITE)
+    sys.exit(0)
+
 
 def clear_terminal():
     """
@@ -110,23 +119,41 @@ def user_input():
     Validates their guess, Hit or Miss.
     If a user enters an invalid input, or NO input, 
     the input will run again until a user inputs a valid input.
+
     """
-    row = input("\nPlease enter a ROW (1-6): ")
-    if row == "Q":
-        exit_game()
-    while row not in ["1", "2", "3", "4", "5", "6"] or row == "":
-        print(RED + "Invalid Input. Please enter a number(1-6)\n" + WHITE)
-        row = input("\nPlease enter a ROW (1-6): ")
-    column = input("\nPlease enter a COLUMN (A-F): ").upper()
-    if column == "Q":
-        exit_game()
-    while column not in BOARD_ROW_TO_COLUMNS_MAP.keys():
-        print(RED + "Invalid Input. Please enter a letter(A-F)\n" + WHITE)
-        column = input("\nPlease enter a COLUMN (A-F): ").upper()
-    return int(row) - 1, BOARD_ROW_TO_COLUMNS_MAP[column]
+
+    while True:
+        try:
+            row = input("\nPlease enter a ROW (1-6): ")
+            if row == "Q":
+                exit_game()
+            if row not in ["1", "2", "3", "4", "5", "6"] or row == "":
+                raise ValueError
+            if row in ["1", "2", "3", "4", "5", "6"]:
+                row = int(row) - 1
+                break
+        except ValueError:
+            print(RED + "Invalid Input. Please enter a number(1-6)\n" + WHITE)
+
+    while True:
+        try:
+            column = input("\nPlease enter a COLUMN (A-F): ").upper()
+            if column == "Q":
+                exit_game()
+            if column not in BOARD_ROW_TO_COLUMNS_MAP.keys():
+                raise KeyError
+            if column in BOARD_ROW_TO_COLUMNS_MAP.keys():
+                column = BOARD_ROW_TO_COLUMNS_MAP[column]
+                break
+        except KeyError:
+            print(RED + "Invalid Input. Please enter a letter(A-F)\n" + WHITE)
+    return row, column
 
 
 def count_hits(board):
+    """
+    counts hits on board and increments count
+    """
     count = 0
     for row in board:
         for column in row:
@@ -148,9 +175,8 @@ def play_game():
     creates 10 turns for a user 
     places miss and hit symbols where the user guesses
     checks if user has already made the same move and notifies them
-    User only loses a turn if they miss
     """
-    turns = 65
+    turns = 20
     while turns > 0:
         
         print_board(HIDDEN_BRD)
@@ -161,12 +187,13 @@ def play_game():
         print(GREEN + "COMPUTER'S GRID" + WHITE)
         row, column = user_input()
         if GUESS_BRD[row][column] == MISS:
-            print(YELLOW + f"\nYou've already guessed that, PLEASE TRY AGAIN\n" + WHITE)
+            print(YELLOW + f"\nYou've already guessed that, PLEASE TRY AGAIN" + WHITE)
         elif HIDDEN_BRD[row][column] == "X":
-            print(GREEN + "\nWell done! You hit the ship!\n" + WHITE)
+            print(GREEN + "\nWell done! You hit the ship!" + WHITE)
             GUESS_BRD[row][column] = HIT
+            turns -= 1
         else:
-            print(YELLOW + "\nSorry, you missed!\n" + WHITE)
+            print(YELLOW + "\nSorry, you missed!" + WHITE)
             GUESS_BRD[row][column] = MISS
             turns -= 1
         
@@ -176,34 +203,37 @@ def play_game():
             row, column = computer_input()
         if HIDDEN_COMP_BRD[row][column] == "X":
             HIDDEN_COMP_BRD[row][column] = HIT
-            print(RED + "Computer HIT Ship" + WHITE)
+            print(RED + "\nComputer HIT Ship" + WHITE)
         else:
             HIDDEN_COMP_BRD[row][column] = MISS
-            print(YELLOW + "Computer MISSED Ship" + WHITE)
+            print(YELLOW + "\nComputer MISSED Ship" + WHITE)
         
+        # If 5 ships are hit from either player the game will end
         if count_hits(HIDDEN_COMP_BRD) == MAX_SHIPS:
-            print(RED + "SORRY... COMPUTER Hit all the ships. YOU LOSE")
-            print(RED + "GAME OVER" + WHITE)
+            print(RED + "\nSORRY... COMPUTER Hit all the ships. YOU LOSE")
+            print(RED + "\nGAME OVER" + WHITE)
             break
         if count_hits(GUESS_BRD) == MAX_SHIPS:
-            print(YELLOW + "CONGRADULATIONS! You hit all the battleships. \n")
-            print(RED + "GAME OVER" + WHITE)
+            print(YELLOW + "\nCONGRADULATIONS! You hit all the battleships.")
+            print(RED + "\nGAME OVER" + WHITE)
             break
-        # print(GREEN + "You have " + str(turns) + " turns remaining.\n" + WHITE)
+        print(BLUE + "\nYou have " + str(turns) + " turns remaining.\n" + WHITE)
+
+        # When turns = 0 the game ends and the results are printed
         if turns == 0:
-            print(RED + "No more turns. Game Over.")
+            player_hits = count_hits(GUESS_BRD)
+            computer_hits = count_hits(HIDDEN_COMP_BRD)
+
+            if player_hits > computer_hits:
+                print(GREEN + "\nCongratulations! You win with",  player_hits, "hits!")
+            elif computer_hits > player_hits:
+                print(BLUE + "\nSorry, the computer wins with", computer_hits, "hits!")
+            else:
+                print(YELLOW + "\nIt's a tie! Both have", player_hits, "hits.")
+
+            print(RED + "\nNo more turns. GAME OVER.")
             break
     
-        
-
-def exit_game():
-    """
-    exits program
-    """
-    print(BLUE + "Thanks for playing!")
-    print(RED + "Exiting the program..." + WHITE)
-    sys.exit(0)
-
 
 def main():
     """
@@ -218,6 +248,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-# NB: figure out how to exit game during game run 
-# get rid of turns
-# create a clear terminal function and clear terminal with each turn

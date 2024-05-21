@@ -113,35 +113,39 @@ def user_input():
     If a user enters an invalid input, or NO input, 
     the input will run again until a user inputs a valid input.
     """
-    try:
-        
-        while True:
-            row = input("\nPlease enter a ROW (1-8): ")
-            if row == "exit":
+    while True:
+        try:
+            row = input("\nPlease enter a ROW (1-6): ")
+            if row == "Q":
                 exit_game()
-            
-            row = int(row)
-            if row in BOARD_ROW_TO_COLUMNS_MAP.values():
+            if row not in ["1", "2", "3", "4", "5", "6"] or row == "":
+                raise ValueError
+            if row in ["1", "2", "3", "4", "5", "6"]:
+                row = int(row) - 1
                 break
-            raise ValueError()
-    except ValueError:
-        print(RED + "Invalid Input. Please enter a number(1-8)\n" + WHITE)
+        except ValueError:
+            print(RED + "Invalid Input. Please enter a number(1-6)\n" + WHITE)
 
-    column = input("\nPlease enter a COLUMN (A-H): ").upper()
-    if column == "exit":
-        exit_game()
-        
-    while column not in BOARD_ROW_TO_COLUMNS_MAP.keys():
-        print(RED + "Invalid Input. Please enter a letter(A-H)\n" + WHITE)
-        column = input("\nPlease enter a COLUMN (A-H): ").upper()
-    return int(row) - 1, BOARD_ROW_TO_COLUMNS_MAP[column]
+    while True:
+        try:
+            column = input("\nPlease enter a COLUMN (A-F): ").upper()
+            if column == "Q":
+                exit_game()
+            if column not in BOARD_ROW_TO_COLUMNS_MAP.keys():
+                raise KeyError
+            if column in BOARD_ROW_TO_COLUMNS_MAP.keys():
+                column = BOARD_ROW_TO_COLUMNS_MAP[column]
+                break
+        except KeyError:
+            print(RED + "Invalid Input. Please enter a letter(A-F)\n" + WHITE)
+    return row, column
 
 
 def count_hits(board):
     count = 0
     for row in board:
         for column in row:
-            if column == RED + SYMBOL_HIT + WHITE:
+            if column == SYMBOL_HIT:
                 count += 1
     return count
 
@@ -161,7 +165,7 @@ HIT = 2
 MISS = 3
 
 def make_move(board, user:bool, row, column):
-    if board[row][column] == SYMBOL_MISS:
+    if board[row][column] == MISS:
         if user:
             print_info(f"You've already guessed that, PLEASE TRY AGAIN")
         return NO_MOVE
@@ -169,18 +173,18 @@ def make_move(board, user:bool, row, column):
     if board[row][column] == SYMBOL_HIT:
         if user:
             print(GREEN + "\nWell done! You hit the ship!\n" + WHITE)
-        board[row][column] = RED + SYMBOL_HIT + WHITE
+        board[row][column] = SYMBOL_HIT
         return HIT
     
     else:
         if user:
             print(YELLOW + "\nSorry, you missed!\n" + WHITE)
-        board[row][column] = YELLOW + MISS + WHITE
+        board[row][column] = MISS
         return MISS
 
 def game_over():
     user_hits = count_hits(GUESS_BRD)
-    computer_hits = count_hits(COMPTER_BRD)
+    computer_hits = count_hits(HIDDEN_COMP_BRD)
 
     if user_hits == MAX_SHIPS and computer_hits == MAX_SHIPS:
         print("its a tie")
@@ -288,3 +292,24 @@ def main():
         
 if __name__ == "__main__":
     main()
+
+
+
+
+"""
+
+row = input("\nPlease enter a ROW (1-6): ")
+    if row == "Q":
+        exit_game()
+    while row not in ["1", "2", "3", "4", "5", "6"] or row == "":
+        print(RED + "Invalid Input. Please enter a number(1-6)\n" + WHITE)
+        row = input("\nPlease enter a ROW (1-6): ")
+    column = input("\nPlease enter a COLUMN (A-F): ").upper()
+    if column == "Q":
+        exit_game()
+    while column not in BOARD_ROW_TO_COLUMNS_MAP.keys():
+        print(RED + "Invalid Input. Please enter a letter(A-F)\n" + WHITE)
+        column = input("\nPlease enter a COLUMN (A-F): ").upper()
+    return int(row) - 1, BOARD_ROW_TO_COLUMNS_MAP[column]
+
+    """
