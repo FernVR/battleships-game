@@ -31,11 +31,10 @@ create_empty_board = lambda: [[AVAILABLE] * GRID_SIZE for _ in range(GRID_SIZE)]
 
 
 HIDDEN_BRD = create_empty_board()
-GUESS_BRD = create_empty_board()
+COMPUTER_BRD = create_empty_board()
 
-# Computer board for computer guess ?
-HIDDEN_COMP_BRD = create_empty_board()
-COMP_GUESS_BRD = create_empty_board()
+# Computer board for computer guesses
+PLAYER_BRD = create_empty_board()
 
 # Converts letters to number/ position 
 BOARD_ROW_TO_COLUMNS_MAP = dict(zip(string.ascii_uppercase[0: GRID_SIZE], range(GRID_SIZE)))
@@ -119,9 +118,7 @@ def user_input():
     Validates their guess, Hit or Miss.
     If a user enters an invalid input, or NO input, 
     the input will run again until a user inputs a valid input.
-
     """
-
     while True:
         try:
             row = input("\nPlease enter a ROW (1-6): ")
@@ -172,57 +169,56 @@ def computer_input():
 def play_game():
     """
     plays game
-    creates 10 turns for a user 
+    creates 20 turns for a user 
     places miss and hit symbols where the user guesses
     checks if user has already made the same move and notifies them
     """
     turns = 20
     while turns > 0:
-        
         print_board(HIDDEN_BRD)
         print("hidden player board : test")
-        print_board(HIDDEN_COMP_BRD)
+        print_board(PLAYER_BRD)
         print(GREEN + f" {USERNAME.upper()}'S GRID" + WHITE)
-        print_board(GUESS_BRD)
+        print_board(COMPUTER_BRD)
         print(GREEN + "COMPUTER'S GRID" + WHITE)
         row, column = user_input()
-        if GUESS_BRD[row][column] == MISS:
+        if COMPUTER_BRD[row][column] == MISS:
             print(YELLOW + f"\nYou've already guessed that, PLEASE TRY AGAIN" + WHITE)
         elif HIDDEN_BRD[row][column] == "X":
             print(GREEN + "\nWell done! You hit the ship!" + WHITE)
-            GUESS_BRD[row][column] = HIT
+            COMPUTER_BRD[row][column] = HIT
             turns -= 1
         else:
             print(YELLOW + "\nSorry, you missed!" + WHITE)
-            GUESS_BRD[row][column] = MISS
+            COMPUTER_BRD[row][column] = MISS
             turns -= 1
         
         # Computer Turn
         row, column = computer_input()
-        while HIDDEN_COMP_BRD[row][column] == HIT or HIDDEN_COMP_BRD[row][column] == MISS:
+        while PLAYER_BRD[row][column] == HIT or PLAYER_BRD[row][column] == MISS:
             row, column = computer_input()
-        if HIDDEN_COMP_BRD[row][column] == "X":
-            HIDDEN_COMP_BRD[row][column] = HIT
+        if PLAYER_BRD[row][column] == "X":
+            PLAYER_BRD[row][column] = HIT
             print(RED + "\nComputer HIT Ship" + WHITE)
         else:
-            HIDDEN_COMP_BRD[row][column] = MISS
+            PLAYER_BRD[row][column] = MISS
             print(YELLOW + "\nComputer MISSED Ship" + WHITE)
         
         # If 5 ships are hit from either player the game will end
-        if count_hits(HIDDEN_COMP_BRD) == MAX_SHIPS:
+        if count_hits(PLAYER_BRD) == MAX_SHIPS:
             print(RED + "\nSORRY... COMPUTER Hit all the ships. YOU LOSE")
             print(RED + "\nGAME OVER" + WHITE)
             break
-        if count_hits(GUESS_BRD) == MAX_SHIPS:
+        if count_hits(COMPUTER_BRD) == MAX_SHIPS:
             print(YELLOW + "\nCONGRADULATIONS! You hit all the battleships.")
             print(RED + "\nGAME OVER" + WHITE)
             break
-        print(BLUE + "\nYou have " + str(turns) + " turns remaining.\n" + WHITE)
+        print(BLUE + "\nYou have " + str(turns) + " turns remaining." + WHITE)
 
         # When turns = 0 the game ends and the results are printed
         if turns == 0:
-            player_hits = count_hits(GUESS_BRD)
-            computer_hits = count_hits(HIDDEN_COMP_BRD)
+            player_hits = count_hits(COMPUTER_BRD)
+            computer_hits = count_hits(PLAYER_BRD)
 
             if player_hits > computer_hits:
                 print(GREEN + "\nCongratulations! You win with",  player_hits, "hits!")
@@ -241,7 +237,7 @@ def main():
     """
     print_rules()
     place_ships(HIDDEN_BRD)
-    place_ships(HIDDEN_COMP_BRD)
+    place_ships(PLAYER_BRD)
     play_game()
 
         
