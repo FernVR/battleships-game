@@ -199,10 +199,10 @@ def play_game():
             row, column = computer_input()
         if PLAYER_BRD[row][column] == "X":
             PLAYER_BRD[row][column] = HIT
-            print(RED + "\nComputer HIT Ship" + WHITE)
+            print(RED + "Computer HIT Ship" + WHITE)
         else:
             PLAYER_BRD[row][column] = MISS
-            print(YELLOW + "\nComputer MISSED Ship" + WHITE)
+            print(YELLOW + "Computer MISSED Ship" + WHITE)
         
         # If 5 ships are hit from either player the game will end
         if count_hits(PLAYER_BRD) == MAX_SHIPS:
@@ -213,7 +213,7 @@ def play_game():
             print(YELLOW + "\nCONGRADULATIONS! You hit all the battleships.")
             print(RED + "\nGAME OVER" + WHITE)
             break
-        print(BLUE + "\nYou have " + str(turns) + " turns remaining." + WHITE)
+        print(BLUE + "You have " + str(turns) + " turns remaining." + WHITE)
 
         # When turns = 0 the game ends and the results are printed
         if turns == 0:
