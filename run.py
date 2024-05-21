@@ -175,8 +175,8 @@ def play_game():
     """
     turns = 20
     while turns > 0:
-        print_board(HIDDEN_BRD)
-        print("hidden player board : test")
+        # print_board(HIDDEN_BRD)
+        # print("hidden player board : test")
         print_board(PLAYER_BRD)
         print(GREEN + f" {USERNAME.upper()}'S GRID" + WHITE)
         print_board(COMPUTER_BRD)
