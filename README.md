@@ -164,16 +164,28 @@ Happy coding!
 # Testing 
 
 ## Manual Testing
+
+* I thoroughly tested the program during the process of writing it. I started with a single player version and then later added the computer grid and computer turns. I added the sections part by part and would run through the game to make sure the inputs were still being added and placed on the board correctly. 
+
  manual testing grids (screenshot)
+
 ## Validator Testing
 CI Python Linter Validator.
 ## Lighthouse Testing
-screenshot of DEPLOYED lighthouse test
+
+![](./assets/readme-images/PP3-lighthouse-readme.png)
+
+
 ## Bugs
 ### Fixed Bugs
+* One of my biggest issues was getting the input validations correct, I tried many different ways of executing the code which all had small issues. I solved this with a try and except statement, but would like to find a better way to write the row input values without having a list. For the column input section I have BOARD_ROW_TO_COLUMNS_MAP.keys() which makes it adjustible to the grid size, as opposed to the list of letters. I couldn't get it to work on the row input another way without spending too much time.
+
+* I had some issues using the 'break' keyword in some sections, so I created an exit game function to exit the program when its called and this solved the issues.
+
+* I fixed a lot of spelling and syntax issues throughout the project, mostly solved through the messages in the terminal or using the python validator to easily identify what was causing issues.
 
 ### Known Bugs
-* One of my biggest issues was getting the input validations correct, I tried many different ways of executing the code which all had small issues. I solved this with a try and except statement, but would like to find a better way to write the row input values without having a list. For the column input section I have BOARD_ROW_TO_COLUMNS_MAP.keys() which makes it adjustible to the grid size, as opposed to the list of letters. I couldn't get it to work on the row input another way without spending too much time.
+* I had issues trying to create a grid input option for a user. I tried to make the code to include the grid_size variable that can be changed and I can succesfully create the grids of different sizes by adjusting the number on the grid_size variable. My issues came with the user input in changing the grid size, and I couldn't find a way to implement it without errors, for this reason I didn't include the option and set the grid size to 6 to be well readible in the deployed terminal. 
 
 * During the game, if a user inputs the same inputs twice, the user is notified, but the computer still takes a turn when the user essentially loses a turn. I tried a few different ways to change the play_game function, or creating other functions to solve this issue but it would throw errors with the input validation and I couldn't figure out a way to fix this. I decided to not decrement the user turn here but would like to find a way to prevent the computer from taking a turn here. 
 
@@ -215,25 +227,53 @@ The deployment is made using [Heroku](https://www.heroku.com/) following the lis
 4. Open the terminal in your code editor and change the current working directory to the location you want to use for the cloned directory.
 5. Type 'git clone' into the terminal and then paste the link you copied in step 3. Press enter.
 
-## Technologies Used
-
-* Python: The programming language used to build the game logic.
+# Technologies Used
 
 ## Languages Used
 
-* Python: The main language used for programming the game.
+* Python used to write script [Python](https://www.python.org/doc/)
 
 ## Frameworks, Libraries & Programs Used
 
-* Visual Studio Code: The code editor used for development.
-* Git & GitHub: Used for version control and project collaboration.
-* Github - To save and store the files.
-* Heroku for final deployment.
-* Apple Notes app for project structure and planning
-* Lucid Charts for flow chart
+1. [Visual Studio Code](https://code.visualstudio.com/)
+    - I used Visual Studio Code as editor for this project.
+
+1. [GitPod:](https://www.gitpod.io/)
+    - I used GitPod as my editor for this project.
+
+1. [Git](https://git-scm.com/)
+    - Git was used for version control by utilizing the Gitpod terminal to commit to Git and Push to GitHub.
+
+1. [GitHub:](https://github.com/)
+    - GitHub is used to store the projects code after being pushed from Git.
+
+1. [Python Tutor Visual Debugger:](https://pythontutor.com/)
+    - I sometimes used Python Tutor for debugging.
+
+1. [Heroku:](https://heroku.com)
+    - For final deoployment.
+
+1. [Notes:](https://apple.com/notes/)
+    - I used the apple notes app on both my iPad and my iPhone for sketches, or any other planning/checklists used for this project.
+
+1. [Lucid Charts:](https://apple.com/notes/)
+    - I used Lucid Charts to create a flowchart when planning my project.
+
+1. [Apple Numbers:](https://apple.com/numbers/)
+    - I used the Numbers app on my iPad pro to create testing spreadsheets.
+
 
 # Credits
-## Code
-## Content
-## Media
+
+* [W3Schools](https://www.w3schools.com/), [PEP 8 Style Guide]( https://peps.python.org/pep-0008/), [OverAPI](https://overapi.com/python) provided a lot of my documentation and reading materials for being able to practise python coding and readability.
+
+* Youtube video from [Knowledge Mavens Channel](https://www.youtube.com/watch?v=tF1WRCrd_HQ) was used as refernce for game logic and structure.
+
+
 ## Acknowledgements 
+
+* Code Institute and its amazing Slack community for their support and providing me with the necessary knowledge to complete this project.
+
+* My mentor Sandeep, for providing a lot of knowledge, guidance and very helpful reading materials.
+
+[Back To Top](#battleship-game)
