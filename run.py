@@ -128,6 +128,7 @@ def user_input():
             row = input("\nPlease enter a ROW (1-6): ")
             if row == "Q":
                 exit_game()
+            # this secion explained bug in readme
             if row not in ["1", "2", "3", "4", "5", "6"] or row == "":
                 raise ValueError
             if row in ["1", "2", "3", "4", "5", "6"]:
