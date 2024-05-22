@@ -168,6 +168,12 @@ def computer_input():
     """
     return random.randint(0, GRID_SIZE - 1), random.randint(0, GRID_SIZE - 1)
 
+def print_game_boards():
+    print_board(PLAYER_BRD)
+    print(GREEN + f" {USERNAME.upper()}'S GRID" + WHITE)
+    print_board(COMPUTER_BRD)
+    print(GREEN + "COMPUTER'S GRID" + WHITE)
+
 
 def play_game():
     """
@@ -180,10 +186,7 @@ def play_game():
     while turns > 0:
         # print_board(HIDDEN_BRD)
         # print("hidden player board : test")
-        print_board(PLAYER_BRD)
-        print(GREEN + f" {USERNAME.upper()}'S GRID" + WHITE)
-        print_board(COMPUTER_BRD)
-        print(GREEN + "COMPUTER'S GRID" + WHITE)
+        print_game_boards()
         row, column = user_input()
         if COMPUTER_BRD[row][column] == MISS:
             print(YELLOW + f"\nYou've already guessed that, PLEASE TRY AGAIN" + WHITE)
@@ -209,11 +212,13 @@ def play_game():
         
         # If 5 ships are hit from either player the game will end
         if count_hits(PLAYER_BRD) == MAX_SHIPS:
-            print(RED + "\nSORRY... COMPUTER Hit all the ships. YOU LOSE")
+            print(RED + "\nSORRY... COMPUTER Hit all the ships." + WHITE)
+            print_game_boards()
             print(RED + "\nGAME OVER" + WHITE)
             break
         if count_hits(COMPUTER_BRD) == MAX_SHIPS:
-            print(YELLOW + "\nCONGRADULATIONS! You hit all the battleships.")
+            print(YELLOW + "\nCONGRADULATIONS! You hit all the battleships." + WHITE)
+            print_game_boards()
             print(RED + "\nGAME OVER" + WHITE)
             break
         print(BLUE + "You have " + str(turns) + " turns remaining." + WHITE)
@@ -224,12 +229,12 @@ def play_game():
             computer_hits = count_hits(PLAYER_BRD)
 
             if player_hits > computer_hits:
-                print(GREEN + "\nCongratulations! You win with",  player_hits, "hits!")
+                print(GREEN + "\nCongratulations! You win with",  player_hits, "hits!" + WHITE)
             elif computer_hits > player_hits:
-                print(BLUE + "\nSorry, the computer wins with", computer_hits, "hits!")
+                print(BLUE + "\nSorry, the computer wins with", computer_hits, "hits!" + WHITE)
             else:
-                print(YELLOW + "\nIt's a tie! Both have", player_hits, "hits.")
-
+                print(YELLOW + "\nIt's a tie! Both have", player_hits, "hits." + WHITE)
+            print_game_boards()
             print(RED + "\nNo more turns. GAME OVER.")
             break
     

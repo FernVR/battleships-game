@@ -68,7 +68,7 @@ Happy coding!
     * [Lighthouse Testing](#lighthouse-testing)
     * [Bugs](#bugs)
         * [Fixed Bugs](#fixed-bugs)
-        * [KNown Bugs](#known-bugs)
+        * [Known Bugs](#known-bugs)
 
 * [Deployment](#deployment)
     * [Github](#github)
@@ -132,12 +132,32 @@ Happy coding!
 1. Row and column inputs are validated, if an invalid input is entered then the user will be asked for the input again, until it is valid. (In this verion, rows = 1 - 6, columns = A - F).
 2. If a user puts a letter in the row input, or a number in the column input there will be an error message printed, with instructions for the correct input. 
 3. Equally, if multiple numbers or letters or no input is entered then the message will also display. 
-4. If a user enters a capital letter "z" they will exit the program.
+4. If a user enters letter "z" they will exit the program.
 
-![]()
+![Input Validation](./assets/readme-images/pp3-readme-features-input-validation.png)
+![Exit Game](./assets/readme-images/pp3-readme-features-input-z.png)
+
+### Gameplay Mechanics
+
+1. The user is given 20 turns to get as many hits as possible.
+2. The computer turn is taken after the user has given their valid inputs. The computer turn is generating two random integars between 0 and the set grid size, and then placed on the board. If the computer generates the same two numbers more than once, it will run again until a unique combination is found. 
+3. After the guesses are made, the hit and miss symbols are placed on the board.
+4. A message is printed to the terminal with results of the guesses, whether the player or computer have a hit or miss.
+5. Another message is displayed below that, letting the user know how many turns are left. The number of turns decreases as each turn is taken. 
+6. The new grids are printed with the positions of hits and miss symbols on the board.
+7. The game will end if user or computer guesses all the ships on their guess board, regardless of how many turns are left.
+
+
+### End of Game 
+1. When all ships are hit, a message will be printed to the terminal letting the user know the winner of the game and then exits the game.
+2. If the turns run out and not all the ships are hit, a message is printed to say the winner and how many hits they have.
+3. The final game boards are printed to the terminal below the message, as well as a "GAME OVER" message.
+
+
 
 ## Future Features
 * I would have liked to include an option for a user to select their own grid size, as well as to select the number of ships and the positions of each ship. I started to include these features but struggled with writing the functions with the time I had remaining.
+* I want to include a feature to ask if the user wants to do a single player game, or play against the computer. The single game player would just be a user guessing on a hidden grid and no computer grid or turns. The user would have 10 or 15 guesses (depending on the selected grid size), and have to try guess all the ships.
 
  
 
@@ -151,7 +171,11 @@ CI Python Linter Validator.
 screenshot of DEPLOYED lighthouse test
 ## Bugs
 ### Fixed Bugs
+
 ### Known Bugs
+* One of my biggest issues was getting the input validations correct, I tried many different ways of executing the code which all had small issues. I solved this with a try and except statement, but would like to find a better way to write the row input values without having a list. For the column input section I have BOARD_ROW_TO_COLUMNS_MAP.keys() which makes it adjustible to the grid size, as opposed to the list of letters. I couldn't get it to work on the row input another way without spending too much time.
+
+* During the game, if a user inputs the same inputs twice, the user is notified, but the computer still takes a turn when the user essentially loses a turn. I tried a few different ways to change the play_game function, or creating other functions to solve this issue but it would throw errors with the input validation and I couldn't figure out a way to fix this. I decided to not decrement the user turn here but would like to find a way to prevent the computer from taking a turn here. 
 
 # Deployment 
 The game is designed to be played locally in a terminal environment. It can be run by executing the Python script run.py.  
