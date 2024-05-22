@@ -12,7 +12,7 @@ GREEN = "\u001b[32m"
 RED = "\u001b[31m"
 YELLOW = "\u001b[33m"
 CYAN = "\u001b[36m"
-WHITE = "\u001b[37;1m" # "BRIGHT/BOLD White"
+WHITE = "\u001b[37;1m"  # "BRIGHT/BOLD White"
 
 # LEGEND 
 # "X" for placing battleship and hit battleship
@@ -27,9 +27,10 @@ AVAILABLE = CYAN + "~" + WHITE
 GRID_SIZE = 6
 MAX_SHIPS = 5
 
+# creates empty board using grid size and available symbols
 create_empty_board = lambda: [[AVAILABLE] * GRID_SIZE for _ in range(GRID_SIZE)]
 
-
+# Creates boards for player guesses
 HIDDEN_BRD = create_empty_board()
 COMPUTER_BRD = create_empty_board()
 
@@ -48,12 +49,15 @@ RULES = f"""
         Welcome to Battleships, {YELLOW + USERNAME.upper() + WHITE}!
         --------------------------------
         Rules are as follows:
-        1. You will be looking for hidden ships on the computer's grid.
-        2. The computer will guess for the ships on your grid.
-        3. You will be asked for a row (a NUMBER) and a column (a LETTER).
-        4. The winner is the player that guesses all the ships first!
-        5. To EXIT the game, type the letter "Q" (CAPITALIZE IT!)
+        \n1. You will be looking for hidden ships on the computer's grid. 
+        \n2. The computer will guess for the ships on your grid.
+        \n3. You will be asked for a row (a NUMBER) and a column (a LETTER).
+        \n4. The winner is the player that guesses all the ships first!
+        \n5. You have 20 guesses. The winner will be the player with the most hits at the end.
+        \n6. To EXIT the game, type the letter "Q" (CAPITALIZE IT!)
            into any input, and you will exit the game.
+
+           <<<<-------- HAVE FUN!!! --------->>>>
         """
 
 # Functions
