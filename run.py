@@ -52,12 +52,10 @@ RULES = f"""
         \n1. You will be looking for hidden ships on the computer's grid. 
         \n2. The computer will guess for the ships on your grid.
         \n3. You will be asked for a row (a NUMBER) and a column (a LETTER).
-        \n4. The winner is the player that guesses all the ships first!
-        \n5. You have 20 guesses. The winner will be the player with the most hits at the end.
-        \n6. To EXIT the game, type the letter "Q" (CAPITALIZE IT!)
-           into any input, and you will exit the game.
-
-           <<<<-------- HAVE FUN!!! --------->>>>
+        \n4. You have 20 guesses. The winner will be the player with the most hits at the end.
+        \n5. To EXIT the game at any stage, enter the letter "z".
+                     
+        <<<<--------- GOOD LUCK --------->>>>
         """
 
 # Functions
@@ -126,7 +124,7 @@ def user_input():
     while True:
         try:
             row = input("\nPlease enter a ROW (1-6): ")
-            if row == "Q":
+            if row == "z":
                 exit_game()
             # this secion explained bug in readme
             if row not in ["1", "2", "3", "4", "5", "6"] or row == "":
@@ -140,7 +138,7 @@ def user_input():
     while True:
         try:
             column = input("\nPlease enter a COLUMN (A-F): ").upper()
-            if column == "Q":
+            if column == "Z":
                 exit_game()
             if column not in BOARD_ROW_TO_COLUMNS_MAP.keys():
                 raise KeyError
