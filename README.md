@@ -201,7 +201,26 @@ I used my notes app on my iPad for planning functions as well as mapping out the
 
 * I deployed my project early in the process, before adding any code, and made sure to thoroughly test the deployed versions to ensure that everything was correct.
 
- manual testing grids (screenshot)
+* Testing was performed on Visual Studio Code Terminal.
+
+
+
+Feature | Test | Expected Outcome | Result
+--- | --- | --- | ---
+Username | Enter username | Username is printed to rules section and grid | Pass
+Username - Empty Input | Enter empty username | "Player" is printed in place of username | Pass
+Rules Input | Enter "Y" to continue to game | Game starts | Pass
+Rules Input | Enter "N" or any key to exit game | Exits program | Pass
+Print Grids | Start game | Player Grid and Computer Grids printed correctly | Pass
+Print hidden grid | use print board function to print hidden answer board | Ships have been randomly placed correctly and are different to player's ships | Pass
+Input Validation ROW | Enter incorrect data to ROW input (a, abc, 1234, empty input) | Prints "Invalid input" message and asks for correct input, repeats until correct input is entered | Pass
+Input Validation COLUMN | Enter incorrect data to COL input (1, 123, abcd, empty input) | Prints "Invalid input" message and asks for correct input, repeats until correct input is entered | Pass
+Progress Messages | score hit / miss and let computer take turn | Player hit/miss message prints to terminal, Computer hit/ miss message prints below it, Number of turns message prints | Pass
+Turns | Enter inputs | Turns message decreases number of turns with each turn taken | Pass
+End of Game | Enter inputs until turns = 0 | Winner and result are printed to terminal and exits program | Pass
+End of Game - User/Computer hits all | Print "test" answer grid with other grids and correctly get all the hits before turns run out | Winner will be printed with congratulations message to terminal and exit game | Pass
+
+
 
 ## Validator Testing
 
