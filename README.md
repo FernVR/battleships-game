@@ -3,7 +3,9 @@
 
 ## Overview 
 
-Portfolio Project 3 Python. A simple battleships game
+A simple battleships game where a user plays against the computer to try and hit the most battleships with 20 turns.
+
+Portfolio Project 3 - Python.
 
 ## How To Play
 
