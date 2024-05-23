@@ -199,6 +199,8 @@ I used my notes app on my iPad for planning functions as well as mapping out the
 
 * I created a testing grid on my iPad Pro so I could test each part of the game as I added each section, ensuring each section was thoroughly tested before deciding to keep it in the program. 
 
+* I deployed my project early in the process, before adding any code, and made sure to thoroughly test the deployed versions to ensure that everything was correct.
+
  manual testing grids (screenshot)
 
 ## Validator Testing

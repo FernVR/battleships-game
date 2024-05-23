@@ -40,7 +40,6 @@ PLAYER_BRD = create_empty_board()
 # Converts letters to number/ position 
 BOARD_ROW_TO_COLUMNS_MAP = dict(zip(string.ascii_uppercase[0: GRID_SIZE], range(GRID_SIZE)))
 
-# CONST Variables
 USERNAME = input(WHITE + "Please enter your username: " + CYAN)
 if USERNAME == "":
     USERNAME = "PLAYER"
@@ -62,16 +61,17 @@ RULES = f"""
 
 def exit_game():
     """
-    exits program
+    exits program when called
     """
     print(BLUE + "Thanks for playing!")
     print(RED + "Exiting the program..." + WHITE)
     sys.exit(0)
 
-
+# I didn't end up including this function as I couldn't find the correct place to call it
+# calling it early ended up clearing all the hit and miss info printed when turns are taken.
 def clear_terminal():
     """
-    clears terminal
+    clears terminal when called
     """
     os.system("cls" if os.name == "nt" else "clear")
 
@@ -79,8 +79,10 @@ def clear_terminal():
 def print_rules():
     """
     Prints rules of game to terminal 
-    "Do you want to proceed Y/N" Text input to check
+    "Do you wish to continue? Y/N" Text input to check
     if user wants to continue 
+    Game will start if user enters "Y", 
+    User will exit game if "n" or any other key is pressed.
     """
     print(WHITE + RULES)
     print("Do you wish to continue?")
@@ -92,8 +94,8 @@ def print_rules():
     
 def print_board(board):
     """
-    creates player grid 
-    prints grids to terminal
+    Creates player and computer grids
+    Prints numbers, letters and available spaces.
     """
     alphabets = " ".join(list(string.ascii_uppercase[0: GRID_SIZE]))
     print(f"\n  {alphabets}") 
@@ -105,7 +107,7 @@ def print_board(board):
 
 def place_ships(board):
     """
-    Creates ships with random numbers from grid size
+    Places random ships on board using the grid size and randint.
     """
     for ship in range(MAX_SHIPS):
         ship_row, ship_col = randint(0, GRID_SIZE - 1), randint(0, GRID_SIZE - 1)
@@ -116,10 +118,10 @@ def place_ships(board):
 
 def user_input():
     """
-    Allows player to take their turn
-    Validates their guess, Hit or Miss.
-    If a user enters an invalid input, or NO input, 
-    the input will run again until a user inputs a valid input.
+    Takes user row and column input.
+    Validates whether input is correct or invalid.
+    If input is invalid then player will be asked for the input again.
+    If user inputs empty string then will be asked again for valid input.
     """
     while True:
         try:
@@ -152,7 +154,7 @@ def user_input():
 
 def count_hits(board):
     """
-    counts hits on board and increments count
+    counts hits on a board and increments count
     """
     count = 0
     for row in board:
@@ -164,11 +166,15 @@ def count_hits(board):
 
 def computer_input():
     """
-    Generates two random integars 
+    Generates two random integars for computer row and column values.
     """
     return random.randint(0, GRID_SIZE - 1), random.randint(0, GRID_SIZE - 1)
 
 def print_game_boards():
+    """
+    Prints player and computer boards with their labels.
+    Will display current game progress when called.
+    """
     print_board(PLAYER_BRD)
     print(GREEN + f" {USERNAME.upper()}'S GRID" + WHITE)
     print_board(COMPUTER_BRD)
@@ -177,10 +183,12 @@ def print_game_boards():
 
 def play_game():
     """
-    plays game
-    creates 20 turns for a user 
-    places miss and hit symbols where the user guesses
-    checks if user has already made the same move and notifies them
+    Plays game
+    Creates 20 turns for a user 
+    Marks miss and hit symbols where the user guesses
+    Checks if user has already made the same move and notifies them
+    Computer guess is taken and prints whether computer has hit or miss.
+    Game will end when one player gets all the hits or the turns run out.
     """
     turns = 20
     while turns > 0:
