@@ -183,6 +183,8 @@ Print Grids | Start game | Player Grid and Computer Grids printed correctly | Pa
 Print hidden grid | use print board function to print hidden answer board | Ships have been randomly placed correctly and are different to player's ships | Pass
 Input Validation ROW | Enter incorrect data to ROW input (a, abc, 1234, empty input) | Prints "Invalid input" message and asks for correct input, repeats until correct input is entered | Pass
 Input Validation COLUMN | Enter incorrect data to COL input (1, 123, abcd, empty input) | Prints "Invalid input" message and asks for correct input, repeats until correct input is entered | Pass
+Exit Game - Row Input | Exiting game using "z" | The program stops running when entered | Pass
+Exit Game - Column Input | Exiting game using "z" | The program stops running when entered | Pass
 Progress Messages | score hit / miss and let computer take turn | Player hit/miss message prints to terminal, Computer hit/ miss message prints below it, Number of turns message prints | Pass
 Turns | Enter inputs | Turns message decreases number of turns with each turn taken | Pass
 End of Game | Enter inputs until turns = 0 | Winner and result are printed to terminal and exits program | Pass
