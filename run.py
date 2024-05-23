@@ -6,6 +6,7 @@ import sys
 import os
 import string
 
+
 # ANSI Escape codes
 BLUE = "\u001b[34m"
 GREEN = "\u001b[32m"
@@ -28,7 +29,8 @@ GRID_SIZE = 6
 MAX_SHIPS = 5
 
 # creates empty board using grid size and available symbols
-create_empty_board = lambda: [[AVAILABLE] * GRID_SIZE for _ in range(GRID_SIZE)]
+create_empty_board = \
+    lambda: [[AVAILABLE] * GRID_SIZE for _ in range(GRID_SIZE)]
 
 # Creates boards for player guesses
 HIDDEN_BRD = create_empty_board()
@@ -38,7 +40,8 @@ COMPUTER_BRD = create_empty_board()
 PLAYER_BRD = create_empty_board()
 
 # Converts letters to number/ position 
-BOARD_ROW_TO_COLUMNS_MAP = dict(zip(string.ascii_uppercase[0: GRID_SIZE], range(GRID_SIZE)))
+BOARD_ROW_TO_COLUMNS_MAP = \
+    dict(zip(string.ascii_uppercase[0: GRID_SIZE], range(GRID_SIZE)))
 
 USERNAME = input(WHITE + "Please enter your username: " + CYAN)
 if USERNAME == "":
@@ -51,8 +54,9 @@ RULES = f"""
         \n1. You will be looking for hidden ships on the computer's grid. 
         \n2. The computer will guess for the ships on your grid.
         \n3. You will be asked for a row (a NUMBER) and a column (a LETTER).
-        \n4. You have 20 guesses. The winner will be the player with the most hits at the end.
-        \n5. To EXIT the game at any stage, enter the letter "z".
+        \n4. You have 20 guesses. 
+        \n5. The winner will be the player with the most hits at the end.
+        \n6. To EXIT the game at any stage, enter the letter "z".
                      
         <<<<--------- GOOD LUCK --------->>>>
         """
@@ -67,8 +71,7 @@ def exit_game():
     print(RED + "Exiting the program..." + WHITE)
     sys.exit(0)
 
-# I didn't end up including this function as I couldn't find the correct place to call it
-# calling it early ended up clearing all the hit and miss info printed when turns are taken.
+
 def clear_terminal():
     """
     clears terminal when called
@@ -86,7 +89,8 @@ def print_rules():
     """
     print(WHITE + RULES)
     print("Do you wish to continue?")
-    rules_input= input("Press" + YELLOW + " Y " + WHITE + "to play\nOr any key to exit game: ")
+    rules_input= input("Press" + YELLOW + " Y " + WHITE + \
+        "to play\nOr any key to exit game: ")
     if rules_input != "y":
         print(CYAN + "We're sorry to see you go!" + WHITE)
         exit_game()
@@ -110,9 +114,11 @@ def place_ships(board):
     Places random ships on board using the grid size and randint.
     """
     for ship in range(MAX_SHIPS):
-        ship_row, ship_col = randint(0, GRID_SIZE - 1), randint(0, GRID_SIZE - 1)
+        ship_row, ship_col = randint(0, GRID_SIZE - 1), \
+             randint(0, GRID_SIZE - 1)
         while board[ship_row][ship_col] == "X":
-            ship_row, ship_col = randint(0, GRID_SIZE - 1), randint(0, GRID_SIZE -1)
+            ship_row, ship_col = randint(0, GRID_SIZE - 1), \
+                 randint(0, GRID_SIZE -1)
         board[ship_row][ship_col] = "X"
 
 
@@ -135,7 +141,8 @@ def user_input():
                 row = int(row) - 1
                 break
         except ValueError:
-            print(RED + "Invalid Input. Please enter a number(1-6)\n" + WHITE)
+            print(RED + "Invalid Input. Please enter a number(1-6)\n" \
+                + WHITE)
 
     while True:
         try:
@@ -148,7 +155,8 @@ def user_input():
                 column = BOARD_ROW_TO_COLUMNS_MAP[column]
                 break
         except KeyError:
-            print(RED + "Invalid Input. Please enter a letter(A-F)\n" + WHITE)
+            print(RED + "Invalid Input. Please enter a letter(A-F)\n"\
+                 + WHITE)
     return row, column
 
 
@@ -168,7 +176,8 @@ def computer_input():
     """
     Generates two random integars for computer row and column values.
     """
-    return random.randint(0, GRID_SIZE - 1), random.randint(0, GRID_SIZE - 1)
+    return random.randint(0, GRID_SIZE - 1),\
+         random.randint(0, GRID_SIZE - 1)
 
 def print_game_boards():
     """
@@ -197,7 +206,8 @@ def play_game():
         print_game_boards()
         row, column = user_input()
         if COMPUTER_BRD[row][column] == MISS:
-            print(YELLOW + f"\nYou've already guessed that, PLEASE TRY AGAIN" + WHITE)
+            print(YELLOW +\
+                 f"\nYou've already guessed that, PLEASE TRY AGAIN" + WHITE)
         elif HIDDEN_BRD[row][column] == "X":
             print(GREEN + "\nWell done! You hit the ship!" + WHITE)
             COMPUTER_BRD[row][column] = HIT
@@ -209,7 +219,8 @@ def play_game():
         
         # Computer Turn
         row, column = computer_input()
-        while PLAYER_BRD[row][column] == HIT or PLAYER_BRD[row][column] == MISS:
+        while PLAYER_BRD[row][column] == HIT or \
+            PLAYER_BRD[row][column] == MISS:
             row, column = computer_input()
         if PLAYER_BRD[row][column] == "X":
             PLAYER_BRD[row][column] = HIT
@@ -225,7 +236,8 @@ def play_game():
             print(RED + "\nGAME OVER" + WHITE)
             break
         if count_hits(COMPUTER_BRD) == MAX_SHIPS:
-            print(YELLOW + "\nCONGRADULATIONS! You hit all the battleships." + WHITE)
+            print(YELLOW + "\nCONGRADULATIONS! You hit all the battleships."\
+                 + WHITE)
             print_game_boards()
             print(RED + "\nGAME OVER" + WHITE)
             break
@@ -237,11 +249,14 @@ def play_game():
             computer_hits = count_hits(PLAYER_BRD)
 
             if player_hits > computer_hits:
-                print(GREEN + "\nCongratulations! You win with",  player_hits, "hits!" + WHITE)
+                print(GREEN + "\nCongratulations! You win with", \
+                     player_hits, "hits!" + WHITE)
             elif computer_hits > player_hits:
-                print(BLUE + "\nSorry, the computer wins with", computer_hits, "hits!" + WHITE)
+                print(BLUE + "\nSorry, the computer wins with", \
+                    computer_hits, "hits!" + WHITE)
             else:
-                print(YELLOW + "\nIt's a tie! Both have", player_hits, "hits." + WHITE)
+                print(YELLOW + "\nIt's a tie! Both have", \
+                    player_hits, "hits." + WHITE)
             print_game_boards()
             print(RED + "\nNo more turns. GAME OVER.")
             break
