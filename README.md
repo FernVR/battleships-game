@@ -36,9 +36,21 @@ Happy coding!
 # Battleship Game
 
 ## Overview 
+
+Portfolio Project 3 Python. A simple battleships game
+
 ## How To Play
+
+* User is presented with an empty board, and has to guess positions on the board to hit hidden ships.
+* User is playing against the computer, so the computer has its own grid to guess and will generate random numbers to try and hit the ships.
+* The computer will take a turn when a user has put in two inputs, row (a number) and column (a letter), and either hits or misses the positon.
+* The user has 20 turns to take, whoever has the most hits by the end of the game is the winner. If all ships are hit before the turns are up, then the game will end and the winner and results will be printed.
+
+Rules can also be found here: [Battleship (Game) - Wikipedia ](https://en.wikipedia.org/wiki/Battleship_(game))
+
 ## Deployed Site
-#### The live site can be found here : (link to site)
+
+#### The live site can be found here : [Battleship Game](https://battleship-fvr-8678a5bba0bf.herokuapp.com/)
 
 # Contents
 * [Battleship Game](#battleship-game)
@@ -58,8 +70,11 @@ Happy coding!
 
 * [Features](#features)
     * [Existing Features](#existing-features)
+        * [Game Start](#game-start)
         * [Random Board Generation](#random-board-generation)
         * [Input Validation and Error Checking](#input-validation-and-error-checking)
+        * [Gameplay Mechanics](#gameplay-mechanics)
+        * [End of Game](#end-of-game)
     * [Future Features](#future-features)
 
 * [Testing](#testing)
@@ -76,14 +91,12 @@ Happy coding!
     * [How to Clone](#how-to-clone)
 
 * [Technologies Used](#technologies-used)
-* [Languages Used](#languages-used)
-* [Frameworks Libraries and Programs Used](#frameworks-libraries--programs-used)
+    * [Languages Used](#languages-used)
+    * [Frameworks Libraries and Programs Used](#frameworks-libraries--programs-used)
 
 * [Credits](#credits)
-    * [Code](#code)
-    * [Content](#content)
-    * [Media](#media)
-    * [Acknowledgments](#acknowledgements)
+    
+* [Acknowledgments](#acknowledgements)
 
 
 # User Experience (UX)
@@ -104,21 +117,32 @@ Happy coding!
 # Workflow
  
 ## Flowchart
+
 #### Lucid Chart
+
 ![Flow chart](./assets/readme-images/PP3-flowchart.png)
+
 ## Wireframe 
- wireframe sketches screenshots (function planning etc)
+
+I used my notes app on my iPad for planning functions as well as mapping out the board with hit and miss symbols to demonstrate what I wanted it to look like. I had a general idea of some of the functions and how they would operate in the game. 
+
+![wireframe 1](./assets/readme-images/pp3-wf.png)
+![wireframe 2](./assets/readme-images/pp3-wf2.png)
+![wireframe 3](./assets/readme-images/pp3-wf3.png)
 
 # Features
+
 ## Existing Features
+
 ### Game Start
+
 1. Player is asked to input their username, a user has an option to leave this option blank and is assigned 'Player' as their username for the rules section, and the player grid's label. 
 2. A welcome message and rules for the game are printed in a list format, outlining the rules of the game and how to play.
 3. A user is asked if they wish to continue.
 4. If they press 'y' the game starts, if they wish to exit, they can press 'n' or any other character.
 5. The player and computer boards are then printed to the terminal.
 
-![Game Start](./assets/readme-images/PP3-readme-features-start.png) 
+![Game Start](./assets/readme-images/pp3-readme-features-start.png) 
 
 ### Random Board Generation
 1. The player's grid is printed to the board.
@@ -147,19 +171,23 @@ Happy coding!
 6. The new grids are printed with the positions of hits and miss symbols on the board.
 7. The game will end if user or computer guesses all the ships on their guess board, regardless of how many turns are left.
 
+![Game 1](./assets/readme-images/pp3-readme-features-game-1.png)
+![Game 2](./assets/readme-images/pp3-readme-features-game.png)
+
 
 ### End of Game 
+
 1. When all ships are hit, a message will be printed to the terminal letting the user know the winner of the game and then exits the game.
 2. If the turns run out and not all the ships are hit, a message is printed to say the winner and how many hits they have.
 3. The final game boards are printed to the terminal below the message, as well as a "GAME OVER" message.
 
+![End of Game](./assets/readme-images/pp3-readme-features-endgame.png)
 
 
 ## Future Features
+
 * I would have liked to include an option for a user to select their own grid size, as well as to select the number of ships and the positions of each ship. I started to include these features but struggled with writing the functions with the time I had remaining.
 * I want to include a feature to ask if the user wants to do a single player game, or play against the computer. The single game player would just be a user guessing on a hidden grid and no computer grid or turns. The user would have 10 or 15 guesses (depending on the selected grid size), and have to try guess all the ships.
-
- 
 
 # Testing 
 
@@ -167,17 +195,25 @@ Happy coding!
 
 * I thoroughly tested the program during the process of writing it. I started with a single player version and then later added the computer grid and computer turns. I added the sections part by part and would run through the game to make sure the inputs were still being added and placed on the board correctly. 
 
+* I used a test.py document in my respository, where I essentially kept my up to date code and would add stuff and test it in that folder before adding to the main python run.py folder. I found this helpful as I sometimes could get confused when adding a lot of stuff at once, it was just a bit easier to organise in having a test file where I could try anything I wanted and make notes of what worked and what didn't as well as why. I have since removed the test and notes file from this repository.
+
+* I created a testing grid on my iPad Pro so I could test each part of the game as I added each section, ensuring each section was thoroughly tested before deciding to keep it in the program. 
+
  manual testing grids (screenshot)
 
 ## Validator Testing
+
 CI Python Linter Validator.
+
 ## Lighthouse Testing
 
 ![](./assets/readme-images/PP3-lighthouse-readme.png)
 
 
 ## Bugs
+
 ### Fixed Bugs
+
 * One of my biggest issues was getting the input validations correct, I tried many different ways of executing the code which all had small issues. I solved this with a try and except statement, but would like to find a better way to write the row input values without having a list. For the column input section I have BOARD_ROW_TO_COLUMNS_MAP.keys() which makes it adjustible to the grid size, as opposed to the list of letters. I couldn't get it to work on the row input another way without spending too much time.
 
 * I had some issues using the 'break' keyword in some sections, so I created an exit game function to exit the program when its called and this solved the issues.
@@ -185,11 +221,13 @@ CI Python Linter Validator.
 * I fixed a lot of spelling and syntax issues throughout the project, mostly solved through the messages in the terminal or using the python validator to easily identify what was causing issues.
 
 ### Known Bugs
+
 * I had issues trying to create a grid input option for a user. I tried to make the code to include the grid_size variable that can be changed and I can succesfully create the grids of different sizes by adjusting the number on the grid_size variable. My issues came with the user input in changing the grid size, and I couldn't find a way to implement it without errors, for this reason I didn't include the option and set the grid size to 6 to be well readible in the deployed terminal. 
 
 * During the game, if a user inputs the same inputs twice, the user is notified, but the computer still takes a turn when the user essentially loses a turn. I tried a few different ways to change the play_game function, or creating other functions to solve this issue but it would throw errors with the input validation and I couldn't figure out a way to fix this. I decided to not decrement the user turn here but would like to find a way to prevent the computer from taking a turn here. 
 
 # Deployment 
+
 The game is designed to be played locally in a terminal environment. It can be run by executing the Python script run.py.  
 
 ### Github
@@ -265,7 +303,7 @@ The deployment is made using [Heroku](https://www.heroku.com/) following the lis
 
 # Credits
 
-* [W3Schools](https://www.w3schools.com/), [PEP 8 Style Guide]( https://peps.python.org/pep-0008/), [OverAPI](https://overapi.com/python) provided a lot of my documentation and reading materials for being able to practise python coding and readability.
+* [W3Schools](https://www.w3schools.com/), [PEP 8 Style Guide]( https://peps.python.org/pep-0008/), [OverAPI](https://overapi.com/python), [Haoyi's Programming Blog](https://www.lihaoyi.com/) provided a lot of my documentation and reading materials for being able to practise python coding and readability.
 
 * Youtube video from [Knowledge Mavens Channel](https://www.youtube.com/watch?v=tF1WRCrd_HQ) was used as refernce for game logic and structure.
 
