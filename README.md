@@ -145,9 +145,11 @@ I used my notes app on my iPad for planning functions as well as mapping out the
 
 1. When all ships are hit, a message will be printed to the terminal letting the user know the winner of the game and then exits the game.
 2. If the turns run out and not all the ships are hit, a message is printed to say the winner and how many hits they have.
-3. The final game boards are printed to the terminal below the message, as well as a "GAME OVER" message.
+3. If both computer and user score the same then the score and a message saying its a tie will be printed.
+4. The final game boards are printed to the terminal below the message, as well as a "GAME OVER" message.
 
 ![End of Game](./assets/readme-images/pp3-readme-features-endgame.png)
+![End of Game Tie result](./assets/readme-images/pp3-readme-features-endgame-tie.png)
 
 
 ## Future Features
@@ -190,11 +192,15 @@ End of Game - User/Computer hits all | Print "test" answer grid with other grids
 
 ## Validator Testing
 
-CI Python Linter Validator.
+#### CI Python Linter Validator
+
+* After removing whitespace and fixing the length of the lines, I encountered one error stating not to use a lambda and use def instead. I tried to use def but encountered some errors, so decided to keep it with lambda as it was working. I would probably change it to def if I had a bit more time to try different ways of writing it.
+
+  ![CI Python Linter Validator](./assets/readme-images/pp3-readme-python-validator.png)
 
 ## Lighthouse Testing
 
-![](./assets/readme-images/PP3-lighthouse-readme.png)
+![Lighthouse Test](./assets/readme-images/PP3-lighthouse-readme.png)
 
 
 ## Bugs

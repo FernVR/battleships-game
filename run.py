@@ -32,6 +32,7 @@ MAX_SHIPS = 5
 create_empty_board = \
     lambda: [[AVAILABLE] * GRID_SIZE for _ in range(GRID_SIZE)]
 
+
 # Creates boards for player guesses
 HIDDEN_BRD = create_empty_board()
 COMPUTER_BRD = create_empty_board()
